@@ -1,7 +1,28 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css")
+		script(src='//code.jquery.com/jquery-1.11.3.min.js')
+		script(src='//code.jquery.com/jquery-migrate-1.2.1.min.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js')
+	body
+		nav
+			.nav-wrapper.grey.darken-4
+				a.brand-logo(href='#') Pliky
+				ul#nav-mobile.right.hide-on-med-and-down
+					li
+						a(href='sass.html') 이용 방법
+					li
+						a(href='sass.html') 로그인
+					li
+						a(href='components.html') 회원가입
+					li
+						form
+							.input-field
+								input#search(type='search', required='')
+								label(for='search')
+									i.mdi-action-search
+								i.mdi-navigation-close
+		block content
