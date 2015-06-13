@@ -1,0 +1,86 @@
+//
+   Created by nuko on 2015. 6. 13..
+extends layout
+
+block content
+    script.
+        $(document).ready(function(){
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
+             });
+            $('select').material_select();
+        });
+    .row
+        .col.s3
+            ul.collection.with-header
+                li.collection-item
+                    div 아이템 1
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item
+                    div 아이템 2
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item
+                    div 아이템 3
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item
+                    div 아이템 4
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item
+                    div 추가하기
+                li.collection-item
+                    div 미리보기
+                li.collection-item
+                    a(href='/post') 제출하기
+        .col.s9
+            .row
+                form.col.s12(action="/enrollment", method="post")
+                    .row
+                        .input-field.col.s12
+                            input#title.validate(type='text', name="title" , required='')
+                            label(for='title') 제목
+                    .row
+                        .input-field.col.s12
+                            textarea#description.materialize-textarea(length='120', required='', name="description")
+                            label(for='description') 설명
+                    .row
+                        .input-field.col.s12
+                            p.range-field
+                               input#price(type='range', min='0', max='100', name="price")
+                            label 가격
+                    .row
+                        .input-field.col.s12
+                            p.range-field
+                                input#reqNumber(type='range', min='0', max='100', name="reqNumber")
+                            label 리퀘스트 제한
+                    .row
+                        .input-field.col.s5
+                            input#width.validate(type='text', name="width")
+                            label(for='width') 가로
+                        .input-field.col.s2
+                            i.mdi-content-clear
+                        .input-field.col.s5
+                            input#height.validate(type='text', name="height")
+                            label(for='height') 세로
+                    .row
+                        .col.s12
+                            label(for='duedate') 마감일
+                            input#duedate.datepicker(type='date', name="duedate")
+                    .row
+                        .col.s12
+                            .file-field.input-field
+                                input.file-path.validate(type='text', name="file1")
+                                .btn
+                                    span 샘플
+                                    input(type='file', name="file2")
+                    .row
+                        .col.s12
+                            a.btn-floating.btn-large.waves-effect.waves-light.red
+                                i.mdi-content-add
+                    button.btn.waves-effect.waves-light Submit
+                        i.mdi-content-send.right
+
