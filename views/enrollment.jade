@@ -5,82 +5,197 @@ extends layout
 block content
     script.
         $(document).ready(function(){
+            // init materialize css
             $('.datepicker').pickadate({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15 // Creates a dropdown of 15 years to control year
-             });
+            });
             $('select').material_select();
+
+            // item counter
+            var counter = 4;
+
+            // focused item
+            var focused = 1;
+
+            // init focuse
+            function focuse(num){
+                $('.focused').css('display','none').removeClass('focused');
+                $('.enrolldiv[counter='+num+']').css('display','inline').addClass('focused');
+            };
+            focuse(1);
+            // add Item
+            $('#addItem').click(function () {
+                ++counter;
+                var elem = "<li class= 'collection-item item' counter="+ counter +"><div>아이템\
+                            <a href='#!' class='secondary-content'>\
+                                <i class='mdi-content-clear'></i>\
+                            </a></div></li >";
+                $(elem).insertAfter($('li.item:last'));
+
+                //make new enroll div
+                var enrollDiv = '<div style="display:none" class="enrolldiv" counter='+counter+'><div class = "row">\
+                                    <div class="input-field col s12">\
+                                        <input id="title" type="text" name="title" required="" class="validate"/>\
+                                        <label for="title">제목</label>\
+                                    </div>\
+                                    </div >\
+                                    <div class="row">\
+                                        <div class="input-field col s12">\
+                                            <textarea id="description" length="120" required="" name="description"\
+                                                      class="materialize-textarea"></textarea>\
+                                            <label for="description">설명</label>\
+                                        </div>\
+                                    </div>\
+                                    <div class= "row" >\
+                                    <div class="input-field col s12">\
+                                        <p class="range-field">\
+                                            <input id="price" type="range" min="0" max="100" name="price"/>\
+                                        </p>\
+                                        <label>가격</label>\
+                                    </div>\
+                                    </div >\
+                                    <div class="row">\
+                                        <div class="input-field col s12">\
+                                            <p class="range-field">\
+                                                <input id="reqNumber" type="range" min="0" max="100" name="reqNumber"/>\
+                                            </p>\
+                                            <label>리퀘스트 제한</label>\
+                                        </div>\
+                                    </div>\
+                                    <div class= "row" >\
+                                    <div class="input-field col s5">\
+                                        <input id="width" type="text" name="width" class="validate"/>\
+                                        <label for="width">가로</label>\
+                                    </div>\
+                                    <div class= "input-field col s2" > <i class="mdi-content-clear"></i> </ div >\
+                                    <div class="input-field col s5">\
+                                        <input id="height" type="text" name="height" class="validate"/>\
+                                        <label for="height">세로</label>\
+                                    </div>\
+                                    </ div >\
+                                    <div class="row">\
+                                        <div class="col s12">\
+                                            <label for="duedate">마감일</label>\
+                                            <input id="duedate" type="date" name="duedate" class="datepicker"/>\
+                                        </div>\
+                                    </div>\
+                                    <div class= "row" >\
+                                    <div class="col s12">\
+                                        <div class="file-field input-field">\
+                                            <input type="text" name="file1" class="file-path validate"/>\
+                                            <div class="btn">\
+                                                <span>샘플</span>\
+                                                <input type="file" name="file2"/>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    </ div >\
+                                    <div class="row">\
+                                        <div class="col s12">\
+                                            <a class="btn-floating btn-large waves-effect waves-light red">\
+                                                <i class="mdi-content-add"></i>\
+                                            </a>\
+                                        </div>\
+                                    </div>\
+                                    </ div >';
+                $(enrollDiv).insertAfter($('.enrolldiv:last'));
+
+                focuse(counter);
+            });
+
+            // delete Item
+            $('ul.collection').on('click','.item a', function (event) {
+                confirm("정말로 지우시겠습니까?");
+                $(event.target).parents("li").remove();
+            });
+
+            // change window by item
+            $('ul.collection').on('click', '.item div', function (event) {
+                var currentItem = $(event.target).parents(".item");
+                var itemNum = currentItem.attr('counter');
+                focuse(itemNum);
+                $("i.black").removeClass("black");
+                $("li.active").removeClass("active");
+                currentItem.addClass('active');
+                currentItem.find('i').addClass('black');
+            });
         });
     .row
-        .col.s3
+        .col.s2
             ul.collection.with-header
-                li.collection-item
-                    div 아이템 1
+                li.collection-item.item(style='display:none;')
+                li.collection-item.item.active(counter = 1)
+                    div 아이템
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item.item(counter = 2)
+                    div 아이템
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item.item(counter = 3)
+                    div 아이템
+                        a.secondary-content(href='#!')
+                            i.mdi-content-clear
+                li.collection-item.item(counter = 4)
+                    div 아이템
                         a.secondary-content(href='#!')
                             i.mdi-content-clear
                 li.collection-item
-                    div 아이템 2
-                        a.secondary-content(href='#!')
-                            i.mdi-content-clear
+                    div#addItem 추가하기
                 li.collection-item
-                    div 아이템 3
-                        a.secondary-content(href='#!')
-                            i.mdi-content-clear
-                li.collection-item
-                    div 아이템 4
-                        a.secondary-content(href='#!')
-                            i.mdi-content-clear
-                li.collection-item
-                    div 추가하기
-                li.collection-item
-                    div 미리보기
+                    div#preview 미리보기
                 li.collection-item
                     a(href='/post') 제출하기
-        .col.s9
+        .col.s10
             .row
                 form.col.s12(action="/enrollment", method="post")
-                    .row
-                        .input-field.col.s12
-                            input#title.validate(type='text', name="title" , required='')
-                            label(for='title') 제목
-                    .row
-                        .input-field.col.s12
-                            textarea#description.materialize-textarea(length='120', required='', name="description")
-                            label(for='description') 설명
-                    .row
-                        .input-field.col.s12
-                            p.range-field
-                               input#price(type='range', min='0', max='100', name="price")
-                            label 가격
-                    .row
-                        .input-field.col.s12
-                            p.range-field
-                                input#reqNumber(type='range', min='0', max='100', name="reqNumber")
-                            label 리퀘스트 제한
-                    .row
-                        .input-field.col.s5
-                            input#width.validate(type='text', name="width")
-                            label(for='width') 가로
-                        .input-field.col.s2
-                            i.mdi-content-clear
-                        .input-field.col.s5
-                            input#height.validate(type='text', name="height")
-                            label(for='height') 세로
-                    .row
-                        .col.s12
-                            label(for='duedate') 마감일
-                            input#duedate.datepicker(type='date', name="duedate")
-                    .row
-                        .col.s12
-                            .file-field.input-field
-                                input.file-path.validate(type='text', name="file1")
-                                .btn
-                                    span 샘플
-                                    input(type='file', name="file2")
-                    .row
-                        .col.s12
-                            a.btn-floating.btn-large.waves-effect.waves-light.red
-                                i.mdi-content-add
-                    button.btn.waves-effect.waves-light Submit
-                        i.mdi-content-send.right
-
+                    mixin makeForm(counter)
+                        .enrolldiv(style='display:none', counter=counter)
+                            .row
+                                .input-field.col.s12
+                                    input#title.validate(type='text', name="title" , required='')
+                                    label(for='title') 제목
+                            .row
+                                .input-field.col.s12
+                                    textarea#description.materialize-textarea(length='120', required='', name="description")
+                                    label(for='description') 설명
+                            .row
+                                .input-field.col.s12
+                                    p.range-field
+                                       input#price(type='range', min='0', max='100', name="price")
+                                    label 가격
+                            .row
+                                .input-field.col.s12
+                                    p.range-field
+                                        input#reqNumber(type='range', min='0', max='100', name="reqNumber")
+                                    label 리퀘스트 제한
+                            .row
+                                .input-field.col.s5
+                                    input#width.validate(type='text', name="width")
+                                    label(for='width') 가로
+                                .input-field.col.s2
+                                    i.mdi-content-clear
+                                .input-field.col.s5
+                                    input#height.validate(type='text', name="height")
+                                    label(for='height') 세로
+                            .row
+                                .col.s12
+                                    label(for='duedate') 마감일
+                                    input#duedate.datepicker(type='date', name="duedate")
+                            .row
+                                .col.s12
+                                    .file-field.input-field
+                                        input.file-path.validate(type='text', name="file1")
+                                        .btn
+                                            span 샘플
+                                            input(type='file', name="file2")
+                            .row
+                                .col.s12
+                                    a.btn-floating.btn-large.waves-effect.waves-light.red
+                                        i.mdi-content-add
+                    +makeForm(1)
+                    +makeForm(2)
+                    +makeForm(3)
+                    +makeForm(4)
+                    input(type="submit")
