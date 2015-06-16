@@ -1,6 +1,7 @@
 //
    Created by nuko on 2015. 6. 13..
 extends layout
+// todo 아이템 지울때 enrollDiv 같이 지우기
 
 block content
     script.
@@ -108,6 +109,7 @@ block content
             $('ul.collection').on('click','.item a', function (event) {
                 confirm("정말로 지우시겠습니까?");
                 $(event.target).parents("li").remove();
+
             });
 
             // change window by item
@@ -149,7 +151,7 @@ block content
                     a(href='/post') 제출하기
         .col.s10
             .row
-                form.col.s12(action="/enrollment", method="post")
+                form.col.s12(action="/uploads", method="post", enctype='multipart/form-data')
                     mixin makeForm(counter)
                         .enrolldiv(style='display:none', counter=counter)
                             .row
