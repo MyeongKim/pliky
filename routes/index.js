@@ -58,6 +58,7 @@ router.all('/uploads', function(req, res, next) {
     var d = new Date();
     var fileTime = d.getTime();
     var conn = mongoose.createConnection('mongodb://localhost:27017/test');
+    var writestream;
     async.waterfall([
             function(callback) {
                 conn.once('open', function () {
@@ -70,12 +71,14 @@ router.all('/uploads', function(req, res, next) {
                         var read_stream =  fs.createReadStream(dirname + '/bin/' + path);
                         var fullName = filename+fileTime;
                         imageId.push(fullName);
-                        var writestream = gfs.createWriteStream({
+                        writestream = gfs.createWriteStream({
                             filename: filename
                         });
                         read_stream.pipe(writestream);
                     }
-                    callback(null, conn);
+                    writestream.on('close', function () {
+                       callback(null, conn);
+                    });
                 });
             },
             function(conn, callback) {
@@ -90,18 +93,21 @@ router.all('/uploads', function(req, res, next) {
         function(err, conn) {
             console.log(' upload success !');
             res.send("good");
+            conn.close();
         });
 });
 
 router.get('/file/:id',function(req,res,next){
     var pic_id = req.params.id;
     var conn = mongoose.createConnection('mongodb://localhost:27017/test');
+
     conn.once('open', function () {
         var gfs = Grid(conn.db, mongoose.mongo);
         // all set!
         gfs.files.find({filename: pic_id}).toArray(function (err, files) {
             if (err) {
                 res.json(err);
+                conn.close();
             }
             if (files.length > 0) {
                 var extension = pic_id.split('.')[1];
@@ -109,8 +115,12 @@ router.get('/file/:id',function(req,res,next){
                 res.set('Content-Type', mime);
                 var read_stream = gfs.createReadStream({filename: pic_id});
                 read_stream.pipe(res);
+                read_stream.on('end', function () {
+                    conn.close();
+                });
             } else {
                 res.json('File Not Found');
+                conn.close();
             }
         });
     });
