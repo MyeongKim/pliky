@@ -16,22 +16,9 @@ block content
                     th(data-field='width') width
                     th(data-field='height') height
                     th(data-field='duedate') duedate
-                    th(data-field='file1') file1
                     th(data-field='file2') file2
                     th(data-field='updated_at') updated_at
-
             tbody
-                tr
-                    td 제목
-                    td 내 설명
-                    td 300만원
-                    td 10개
-                    td 300
-                    td 300
-                    td 8월 25일
-                    td 파일 1
-                    td 파일 2
-                    td 바로 지금
                 for result in data
                     - var length = result.title.split(",").length
                     // file2 is not initiated
@@ -41,9 +28,8 @@ block content
                     - price_array = result.price.split(",")
                     - reqNumber_array = result.reqNumber.split(",")
                     - width_array = result.width.split(",")
-                    - height_array = result.height.split(",")
+                    - height_array = result.height.split(", ")
                     - duedate_array = result.duedate.split(",")
-                    //- updated_at_array = result.updated_at.split(",")
                     - var index = 0
                     while length > index
                         tr
@@ -54,8 +40,8 @@ block content
                             td #{width_array[index]}
                             td #{height_array[index]}
                             td #{duedate_array[index]}
-                            td what
-                            //td #{updated_at_array[index]}
+                            td
+                                img.materialboxed(src="/file/test.png", width="32")
                         - index++
                     p #{length.length}
 // todo 이미지 나오게 하기

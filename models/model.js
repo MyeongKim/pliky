@@ -4,16 +4,14 @@
 var mongoose = require('mongoose');
 
 var CommitSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    price: String,
-    reqNumber: String,
-    width: String,
-    height: String,
-    duedate: String,
-    file1: { type: Buffer, contentType: String },
-    file2: { type: Buffer, contentType: String },
-    // todo 16MB 보다 큰 이미지는 GridFS 사용하기
+    title: { type: String, default: "#" },
+    description: { type: String, default: "#" },
+    price: { type: String, default: "#" },
+    reqNumber: { type: String, default: "#" },
+    width: { type: String, default: "#" },
+    height: { type: String, default: "#" },
+    duedate: { type: String, default: "#" },
+    imageId : [String],
     updated_at: { type: Date, default: Date.now },
 });
 
