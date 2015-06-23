@@ -6,7 +6,7 @@ var fs = require('fs');
 var Grid = require('gridfs-stream');
 
 var Model = require('../models/model.js');
-mongoose.connect('mongodb://localhost:27017', function(err) {
+mongoose.connect('mongodb://localhost:27017/test', function(err) {
 	if(err) {
 		console.log('connection error', err);
 	} else {
@@ -45,83 +45,56 @@ router.get('/mongodb', function(req, res, next) {
 		//res.json(data);
 	});
 });
-//
-//router.all('/uploads', function(req, res, next) {
-//    console.log(req.body);
-//    console.log(req.files);
-//
-//    // image id array
-//    var imageId = [];
-//    var dirname = require('path').dirname(__dirname);
-//    var d = new Date();
-//    var fileTime = d.getTime();
-//    async.waterfall([
-//            function(callback) {
-//                var conn = mongoose.createConnection('mongodb://localhost:27017/test');
-//                conn.once('open', function () {
-//                    var gfs = Grid(conn.db, mongoose.mongo);
-//
-//                    for (var i in req.files.file2){
-//                        var filename = req.files.file2[i].name;
-//                        console.log(filename);
-//                        var path = req.files.file2[i].path;
-//                        var type = req.files.file2[i].mimetype;
-//                        console.log("testest");
-//                        var read_stream =  fs.createReadStream(dirname + '/bin/' + path);
-//                        var fullName = filename+fileTime;
-//                        imageId.push(fullName);
-//                        console.log("testest");
-//                        var writestream = gfs.createWriteStream({
-//                            filename: filename
-//                        });
-//                        console.log("testest");
-//                        read_stream.pipe(writestream).on('end', function () {
-//                            console.log();
-//                        });
-//                        console.log("testest");
-//                    }
-//                    callback(null);
-//                });
-//
-//            },
-//            function(callback) {
-//                req.body.imageId = imageId;
-//                Model.create(req.body, function (err, post) {
-//                    if (err) return next(err);
-//                });
-//                callback(null);
-//            }
-//        ],
-//        function(err) {
-//            console.log(' upload success !');
-//            res.send("good");
-//        });
-//});
-//
 
 router.all('/uploads', function(req, res, next) {
     console.log(req.body);
     console.log(req.files);
 
+    // image id array
+    var imageId = [];
     var dirname = require('path').dirname(__dirname);
-    var filename = req.files.file2.name;
-    var path = req.files.file2.path;
-    var type = req.files.file2.mimetype;
+    var d = new Date();
+    var fileTime = d.getTime();
+    async.waterfall([
+            function(callback) {
+                var conn = mongoose.createConnection('mongodb://localhost:27017/test');
+                conn.once('open', function () {
+                    var gfs = Grid(conn.db, mongoose.mongo);
 
-    var read_stream =  fs.createReadStream(dirname + '/bin/' + path);
-    var conn = mongoose.createConnection('mongodb://localhost:27017/test');
-    conn.once('open', function () {
-        var gfs = Grid(conn.db, mongoose.mongo);
-        // all set!
-        var writestream = gfs.createWriteStream({
-            filename: filename
+                    for (var i in req.files.file2){
+                        var filename = req.files.file2[i].name;
+                        console.log(filename);
+                        var path = req.files.file2[i].path;
+                        var type = req.files.file2[i].mimetype;
+                        var read_stream =  fs.createReadStream(dirname + '/bin/' + path);
+                        var fullName = filename+fileTime;
+                        imageId.push(fullName);
+                        var writestream = gfs.createWriteStream({
+                            filename: filename
+                        });
+                        read_stream.pipe(writestream).on('end', function () {
+                            console.log();
+                        });
+                    }
+                });
+                conn.close(function(){
+                    console.log("connection close");
+                    callback(null);
+                });
+
+            },
+            function(callback) {
+                req.body.imageId = imageId;
+                Model.create(req.body, function (err, post) {
+                    if (err) return next(err);
+                });
+                callback(null);
+            }
+        ],
+        function(err) {
+            console.log(' upload success !');
+            res.send("good");
         });
-        read_stream.pipe(writestream);
-    });
-    Model.create(req.body, function (err, post) {
-        if (err) return next(err);
-        res.json(post);
-    });
 });
 
 router.get('/file/:id',function(req,res){
@@ -145,5 +118,6 @@ router.get('/file/:id',function(req,res){
             }
         });
     });
+    conn.close();
 });
 module.exports = router;
