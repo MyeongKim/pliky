@@ -30,6 +30,7 @@ block content
                     - width_array = result.width.split(",")
                     - height_array = result.height.split(", ")
                     - duedate_array = result.duedate.split(",")
+                    - image_array = result.imageId
                     - var index = 0
                     while length > index
                         tr
@@ -41,7 +42,5 @@ block content
                             td #{height_array[index]}
                             td #{duedate_array[index]}
                             td
-                                img.materialboxed(src="/file/test.png", width="32")
+                               img.materialboxed(src="/file/" + "#{image_array[index].slice(0, -13)}", width="32")
                         - index++
-                    p #{length.length}
-// todo 이미지 나오게 하기

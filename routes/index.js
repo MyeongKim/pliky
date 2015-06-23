@@ -1,3 +1,5 @@
+// todo 커넥션이 계속 열리는 문제.. createConnections() 할때마다 열림. 에러 발생시 닫히게 해야함.
+// todo 아이템 하나 복수개, 단수개 테스트
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
@@ -55,12 +57,11 @@ router.all('/uploads', function(req, res, next) {
     var dirname = require('path').dirname(__dirname);
     var d = new Date();
     var fileTime = d.getTime();
+    var conn = mongoose.createConnection('mongodb://localhost:27017/test');
     async.waterfall([
             function(callback) {
-                var conn = mongoose.createConnection('mongodb://localhost:27017/test');
                 conn.once('open', function () {
                     var gfs = Grid(conn.db, mongoose.mongo);
-
                     for (var i in req.files.file2){
                         var filename = req.files.file2[i].name;
                         console.log(filename);
@@ -72,32 +73,27 @@ router.all('/uploads', function(req, res, next) {
                         var writestream = gfs.createWriteStream({
                             filename: filename
                         });
-                        read_stream.pipe(writestream).on('end', function () {
-                            console.log();
-                        });
+                        read_stream.pipe(writestream);
                     }
+                    callback(null, conn);
                 });
-                conn.close(function(){
-                    console.log("connection close");
-                    callback(null);
-                });
-
             },
-            function(callback) {
+            function(conn, callback) {
+                console.log("connection close");
                 req.body.imageId = imageId;
                 Model.create(req.body, function (err, post) {
                     if (err) return next(err);
+                    callback(null, conn);
                 });
-                callback(null);
             }
         ],
-        function(err) {
+        function(err, conn) {
             console.log(' upload success !');
             res.send("good");
         });
 });
 
-router.get('/file/:id',function(req,res){
+router.get('/file/:id',function(req,res,next){
     var pic_id = req.params.id;
     var conn = mongoose.createConnection('mongodb://localhost:27017/test');
     conn.once('open', function () {
@@ -118,6 +114,6 @@ router.get('/file/:id',function(req,res){
             }
         });
     });
-    conn.close();
 });
+
 module.exports = router;
