@@ -1,5 +1,6 @@
 //
    Created by nuko on 2015. 6. 13..
+
 extends layout
 
 block content
@@ -12,6 +13,26 @@ block content
             });
             $('select').material_select();
 
+            // 미리보기
+            $('.modal-trigger').leanModal();
+
+            function readURL(input, counter) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#preImage'+counter).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            function fileInputInit(){
+                $(".enrolldiv .inputImage").change(function () {
+                    var counter = $(this).parents('.enrolldiv').attr('counter');
+                    readURL(this, counter);
+                });
+            }
+            fileInputInit();
             // item counter
             var counter = 4;
 
@@ -89,10 +110,10 @@ block content
                                     <div class= "row" >\
                                     <div class="col s12">\
                                         <div class="file-field input-field">\
-                                            <input type="text" name="file1" class="file-path validate"/>\
+                                            <input type="text" name="file1" class="file-path" />\
                                             <div class="btn">\
                                                 <span>샘플</span>\
-                                                <input type="file" name="file2"/>\
+                                                <input type="file" name="file2" class="inputImage" />\
                                             </div>\
                                         </div>\
                                     </div>\
@@ -111,9 +132,24 @@ block content
                     selectMonths: true, // Creates a dropdown to control month
                     selectYears: 15 // Creates a dropdown of 15 years to control year
                 });
+
+                // file input init
+                $('.file-field').each(function() {
+                    var path_input = $(this).find('input.file-path');
+                    $(this).find('input[type="file"]').change(function () {
+                        path_input.val($(this)[0].files[0].name);
+                        path_input.trigger('change');
+                    });
+                });
+                fileInputInit();
+
+                // modal add
+                var elem = "<div counter="+counter+" class='modalItem'><h4>Modal header </h4><p>A bunch of text</p>\
+                            <img id='preImage"+counter+"'"+" src='/images/face.jpg' alt=''/></div>";
+                $(elem).insertAfter($('.modalItem:last'));
             });
 
-
+            // 삭제
             $('ul.collection').on('click','.item a', function (event) {
                 confirm("정말로 지우시겠습니까?");
                 var clikedItem = $(event.target).parents('li.item');
@@ -128,6 +164,7 @@ block content
                     $('li.item:last').find('i').addClass('black');
                     $('.enrolldiv[counter='+deleteNum+']').remove();
                     focuse($('li.item:last').attr('counter'));
+                    $('.modalItem[counter=' + deleteNum + ']').remove();
                 }
             });
 
@@ -165,7 +202,8 @@ block content
                 li.collection-item.addItem
                     div#addItem 추가하기
                 li.collection-item
-                    div#preview 미리보기
+                    div#preview
+                        a.modal-trigger(href="#modal1") 미리보기
                 li.collection-item
                     a(href='/post') 제출하기
         .col.s10
@@ -210,7 +248,7 @@ block content
                                         input.file-path.validate(type='text', name="file1")
                                         .btn
                                             span 샘플
-                                            input(type='file', name="file2")
+                                            input.inputImage(type='file', name="file2")
                             .row
                                 .col.s12
                                     a.btn-floating.btn-large.waves-effect.waves-light.red
@@ -220,3 +258,23 @@ block content
                     +makeForm(3)
                     +makeForm(4)
                     input(type="submit")
+    #modal1.modal
+        .modal-content
+            .modalItem(counter = 1)
+                h4 Modal Header
+                p A bunch of text
+                img#preImage1(src="/images/face.jpg", alt="")
+            .modalItem(counter = 2)
+                h4 Modal Header
+                p A bunch of text
+                img#preImage2(src="/images/face.jpg", alt="")
+            .modalItem(counter = 3)
+                h4 Modal Header
+                p A bunch of text
+                img#preImage3(src="/images/face.jpg", alt="")
+            .modalItem(counter = 4)
+                h4 Modal Header
+                p A bunch of text
+                img#preImage4(src="/images/face.jpg", alt="")
+        .modal-footer
+            a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#!') Agree
