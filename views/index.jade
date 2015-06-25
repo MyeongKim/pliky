@@ -1,81 +1,125 @@
+// todo tab 으로 바꾸기
+// todo 이미지 object 던져서 받고 for 문으로 뿌리기
+// todo client 가 filter 해서 최신, 인기순 정렬함
 extends layout
 
 block content
-	script.
-		$(document).ready(function(){
-			$('.slider').slider({indicators: false, interval:99999});
-			$('.slider').on('mouseenter', function(e){
-				$('.slider').slider({indicators: false, interval:2000});
-			});
-			$('.slider').on('mouseleave', function(e){
-				$('.slider').slider({indicators: false, interval:99999});
-			});
-		});
-	.container
-		.row.promo
-			.col.s6
-				.video-container.no-controls
-					iframe(width='853', height='480', src='//www.youtube.com/embed/Q8TXgCzxEnw?rel=0;autohide=1', frameborder='0', allowfullscreen='')
-			.col.s6
-				h5 Pliky에 처음 오셨나요?
-				p 간단한 소개 영상으로 이용 방법을 알아보세요!
-		.divider
-		nav
-			.nav-wrapper.white
-				ul#nav-mobile.right.hide-on-med-and-down
-					li
-						a(href='components.html').black-text 마감임박순
-					li
-						a(href='components.html').black-text 인기순
-					li
-						a(href='javascript.html').black-text 신규등록순
+    script.
+        $(document).ready(function () {
+            $('.autoplay').slick({
+                dots: false,
+                infinite : true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                arrows: false,
+            });
 
-		mixin profile
-			.col.s2
-				img.circle.responsive-img(src='images/face.jpg', alt='')
-			.col.s2
-				p.black-text myname
-			.col.s6.offset-s2
-				.row.thumbInfo
-					.col.s2
-						i.small.mdi-action-visibility
-					.col.s2
-						p 33
-					.col.s2
-						i.small.mdi-action-favorite-outline
-					.col.s2
-						p 33
-					.col.s2
-						i.small.mdi-action-question-answer
-					.col.s2
-						p 33
+            // carousel hover effect
+            $('.autoplay').mouseenter(function(){
+               //$('.autoplay').slick('slickPause');
+               $(this).slick('slickPause');
+            }).mouseleave(function(){
+               $('.autoplay').slick('slickPlay');
+            });
 
-		mixin thumbnail
-			.row
-				.col.s12
-					.thumbDiv
-						.slider
-							ul.slides
-								li
-									img(src='http://lorempixel.com/580/250/nature/1')
-								li
-									img(src='http://lorempixel.com/580/250/nature/2')
-								li
-									img(src='http://lorempixel.com/580/250/nature/3')
-								li
-									img(src='http://lorempixel.com/580/250/nature/4')										
-			.row.profileInfo
-				+profile
+            // preloadDiv init
+            function preloadDivShow(){
+                $('.preloadDiv').show();
+                setTimeout(function(){
+                    $('.preloadDiv').hide();
+                },2500);
+                $('.tabItem').css('z-index', 0);
+            }
+            preloadDivShow();
 
-		mixin list
-			.row
-				.col.s4
-					+thumbnail
-				.col.s4
-					+thumbnail
-				.col.s4
-					+thumbnail
-		+list
-		+list
-		+list
+            // tab change preloader
+            $('.tab a').click(function(){
+                preloadDivShow();
+            });
+        });
+    .container
+        .row.promo
+            .col.s6
+                .video-container.no-controls
+                    iframe(width='853', height='480', src='//www.youtube.com/embed/Q8TXgCzxEnw?rel=0;autohide=1', frameborder='0', allowfullscreen='')
+            .col.s6
+                h5 Pliky에 처음 오셨나요?
+                p 간단한 소개 영상으로 이용 방법을 알아보세요!
+        .divider
+        .row
+            .col.s12
+                ul.tabs
+                    li.tab.col.s3
+                        a(href='#heartAlign') 인기순
+                    li.tab.col.s3
+                        a(href='#newAlign') 신규등록순
+                    li.tab.col.s3
+                        a(href='#timeAlign') 마감임박순
+            .tabItem#heartAlign
+                mixin preload
+                    .preloadDiv
+                        .preloadCircle
+                            .preloader-wrapper.big.active
+                                .spinner-layer.spinner-blue-only
+                                    .circle-clipper.left
+                                        .circle
+                                    .gap-patch
+                                        .circle
+                                    .circle-clipper.right
+                                        .circle
+                +preload
+                +list
+                +list
+                +list
+            .tabItem#newAlign
+                +preload
+                +list
+                +list
+                +list
+            .tabItem#timeAlign
+                +preload
+                +list
+                +list
+                +list
 
+        mixin profile
+            .col.s2
+                img.circle.responsive-img(src='images/face.jpg', alt='')
+            .col.s2
+                p.black-text myname
+            .col.s6.offset-s2
+                .row.thumbInfo
+                    .col.s2
+                        i.small.mdi-action-visibility
+                    .col.s2
+                        p 33
+                    .col.s2
+                        i.small.mdi-action-favorite-outline
+                    .col.s2
+                        p 33
+                    .col.s2
+                        i.small.mdi-action-question-answer
+                    .col.s2
+                        p 33
+
+        mixin thumbnail
+            .outer
+                .autoplay
+                    div
+                        a(href="images/face.jpg", data-lightbox="image-1")
+                            img(src="/images/face.jpg" , width='650')
+                    div
+                        a(href="images/sample-1.jpg", data-lightbox="image-1")
+                            img(src="/images/sample-1.jpg", width ='650')
+            .row.profileInfo
+
+        mixin list
+            .row
+                .col.s4
+                    +thumbnail
+                .col.s4
+                    +thumbnail
+                .col.s4
+                    +thumbnail

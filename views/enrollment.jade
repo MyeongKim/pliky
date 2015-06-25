@@ -1,3 +1,4 @@
+// todo 이미지 여러개 추가
 //
    Created by nuko on 2015. 6. 13..
 
@@ -20,7 +21,7 @@ block content
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        $('#preImage'+counter).attr('src', e.target.result);
+                        $('.modalItem[counter='+counter+'] img').attr('src', e.target.result);
                     }
                     reader.readAsDataURL(input.files[0]);
                 }
@@ -33,6 +34,39 @@ block content
                 });
             }
             fileInputInit();
+
+            // text input field mapping to modal
+            function textMapping(){
+                $('.enrolldiv').each(function(){
+                    var counter = $(this).attr('counter');
+                    var title = $(this).find('input[name="title"]').val();
+                    var description = $(this).find('textarea[name="description"]').val();
+                    var price = $(this).find('input[name="price"]').val();
+                    var reqNumber = $(this).find('input[name="reqNumber"]').val();
+                    var width = $(this).find('input[name="width"]').val();
+                    var height = $(this).find('input[name="height"]').val();
+                    var duedate = $(this).find('input[name="duedate"]').val();
+                    var modalItem = $('.modalItem[counter='+counter+']');
+                    modalItem.find('h5').text(title);
+                    modalItem.find('p[name="description"]').text(description);
+                    modalItem.find('p[name="price"]').text(price);
+                    modalItem.find('p[name="reqNumber"]').text(reqNumber);
+                    modalItem.find('p[name="width"]').text(width);
+                    modalItem.find('p[name="height"]').text(height);
+                    modalItem.find('p[name="duedate"]').text(duedate);
+                });
+            }
+            $('.modal-trigger').click(function(){
+                        textMapping();
+                    }
+            );
+
+            //submit button change
+            $('#displayedSubmit').click(function (e) {
+                e.preventDefault();
+                $('#hiddenSubmit').click();
+            });
+
             // item counter
             var counter = 4;
 
@@ -144,8 +178,14 @@ block content
                 fileInputInit();
 
                 // modal add
-                var elem = "<div counter="+counter+" class='modalItem'><h4>Modal header </h4><p>A bunch of text</p>\
-                            <img id='preImage"+counter+"'"+" src='/images/face.jpg' alt=''/></div>";
+                var elem = "<div counter="+counter+" class='modalItem'><h5>title</h5>\
+                            <p name='description'>description</p>\
+                            <p name='price'></p>\
+                            <p name='reqNumber'></p>\
+                            <p name='width'></p>\
+                            <p name='height'></p>\
+                            <p name='duedate'></p>\
+                            <img src='/images/face.jpg' alt=''/></div>";
                 $(elem).insertAfter($('.modalItem:last'));
             });
 
@@ -205,7 +245,7 @@ block content
                     div#preview
                         a.modal-trigger(href="#modal1") 미리보기
                 li.collection-item
-                    a(href='/post') 제출하기
+                    a#displayedSubmit(href='#') 제출하기
         .col.s10
             .row
                 form.col.s12(action="/uploads", method="post", enctype='multipart/form-data')
@@ -257,24 +297,22 @@ block content
                     +makeForm(2)
                     +makeForm(3)
                     +makeForm(4)
-                    input(type="submit")
+                    input#hiddenSubmit(type="submit" style='display:none;')
     #modal1.modal
         .modal-content
-            .modalItem(counter = 1)
-                h4 Modal Header
-                p A bunch of text
-                img#preImage1(src="/images/face.jpg", alt="")
-            .modalItem(counter = 2)
-                h4 Modal Header
-                p A bunch of text
-                img#preImage2(src="/images/face.jpg", alt="")
-            .modalItem(counter = 3)
-                h4 Modal Header
-                p A bunch of text
-                img#preImage3(src="/images/face.jpg", alt="")
-            .modalItem(counter = 4)
-                h4 Modal Header
-                p A bunch of text
-                img#preImage4(src="/images/face.jpg", alt="")
+            mixin makeModalItem(counter)
+                .modalItem(counter = counter)
+                   h5 title
+                   p(name='description') description
+                   p(name='price')
+                   p(name='reqNumber')
+                   p(name='width')
+                   p(name='height')
+                   p(name='duedate')
+                   img(src="/images/face.jpg", alt="")
+            +makeModalItem(1)
+            +makeModalItem(2)
+            +makeModalItem(3)
+            +makeModalItem(4)
         .modal-footer
             a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='#!') Agree

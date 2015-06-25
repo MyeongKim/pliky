@@ -1,5 +1,5 @@
-// todo 커넥션이 계속 열리는 문제.. createConnections() 할때마다 열림. 에러 발생시 닫히게 해야함.
 // todo 아이템 하나 복수개, 단수개 테스트
+// todo 그림 하나만 제출하면 for 문 안에서 에러남.
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
