@@ -17,4 +17,17 @@ var CommitSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Commit', CommitSchema);
+var UserSchema = new mongoose.Schema({
+    email : String,
+    nickname : { type : String, default : "IamUser"},
+    password : String,
+    //passwordHash : String,
+    //passwordSalt : String,
+    following : [String],
+    follower : [String],
+});
+
+module.exports = {
+    CommitModel : mongoose.model('Commit', CommitSchema),
+    UserModel : mongoose.model('User', UserSchema)
+};

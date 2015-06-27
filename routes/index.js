@@ -7,7 +7,9 @@ var async = require('async');
 var fs = require('fs');
 var Grid = require('gridfs-stream');
 
-var Model = require('../models/model.js');
+var CommitModel = require('../models/model.js').CommitModel;
+var UserModel = require('../models/model.js').UserModel;
+
 mongoose.connect('mongodb://localhost:27017/test', function(err) {
 	if(err) {
 		console.log('connection error', err);
@@ -18,7 +20,7 @@ mongoose.connect('mongodb://localhost:27017/test', function(err) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    Model.find(function(err, data){
+    CommitModel.find(function(err, data){
         if (err) return next(err);
 
         console.log("json data");
@@ -35,7 +37,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/admin', function(req, res, next) {
-    Model.find(function (err, data) {
+    CommitModel.find(function (err, data) {
         if (err) return next(err);
         res.render('admin', {data : data});
     });
@@ -45,24 +47,45 @@ router.get('/signup', function(req, res, next){
     res.render('signup');
 });
 
-router.get('/signin', function(req, res, next){
-    res.render('signin');
+router.post('/signup', function(req, res, next){
+    // password need to be encrypted
+    UserModel.create(req.body, function (err, post) {
+        if (err) return next(err);
+        res.redirect('/signin');
+    });
 });
 
+router.get('/signin', function(req, res, next){
+    res.render('signin', {state : ''});
+});
+
+router.post('/signin', function(req, res, next){
+    UserModel.findOne({'email' : req.body.email, 'password' : req.body.password}, function (err, data) {
+        if (err) return next(err);
+
+        if (data == null){
+            res.render('signin', {state : "로그인에 실패했습니다."});
+        } else{
+            console.log("user signed in :"+data.email);
+            res.redirect('/');
+        }
+        console.log(data);
+    });
+});
 
 router.get('/enrollment', function (req, res, next) {
     res.render('enrollment');
 });
 
 router.post('/enrollment', function(req, res){
-	Model.create(req.body, function (err, post) {
+	CommitModel.create(req.body, function (err, post) {
 		if (err) return next(err);
 		res.json(post);
 	});
 });
 
 router.get('/mongodb', function(req, res, next) {
-	Model.findOne(function (err, data) {
+	CommitModel.findOne(function (err, data) {
 		if (err) return next(err);
         res.type('png');
         res.send(data.file2.data);
@@ -106,7 +129,7 @@ router.all('/uploads', function(req, res, next) {
                 console.log("connection close");
                 req.body.imageId = imageId;
                 req.body.fileTime = fileTime;
-                Model.create(req.body, function (err, post) {
+                CommitModel.create(req.body, function (err, post) {
                     if (err) return next(err);
                     callback(null, conn);
                 });

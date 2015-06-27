@@ -2,6 +2,18 @@
    Created by nuko on 2015. 6. 26..
 extends layout
 block content
+    script.
+        $(document).ready(function(){
+            $("form").submit(function (e) {
+                if ($('input[name="email"]').val() == '' || $('input[name="password"]').val() == ''){
+                    e.preventDefault();
+                }
+            });
+            var state = !{JSON.stringify(state)};
+            if (state !=''){
+                alert(state);
+            }
+        });
     .container
         .row
             .col.s12.m8.offset-m2.l6.offset-l3.z-depth-1
@@ -15,14 +27,14 @@ block content
                         a.social-button(href="#",class='google')
                             i.fa(class="fa-" + 'google')
                     .col.s8.signInput
-                        .form
+                        form(action="/signin", method="post")
                             .row
                                 .input-field.col.s12
-                                    input#email.validate(type='email')
+                                    input#email.validate(type='email' name='email')
                                     label(for='email') Email
                             .row
                                 .input-field.col.s12
-                                    input#password.validate(type='password')
+                                    input#password.validate(type='password' name='password')
                                     label(for='password') Password
                             .row(style='visibility: hidden;')
                                 .input-field.col.s12
