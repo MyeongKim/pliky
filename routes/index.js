@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var async = require('async');
 var fs = require('fs');
+var passport = require('passport');
 var Grid = require('gridfs-stream');
 
 var CommitModel = require('../models/model.js').CommitModel;
@@ -31,7 +32,7 @@ router.get('/', function(req, res, next) {
         if( data.length > 9){
             data.slice(-9,-1);
         } else{
-            res.render('index', {data : data});
+            res.render('index', {data : data, user: req.user});
         }
     });
 });
@@ -44,32 +45,44 @@ router.get('/admin', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next){
-    res.render('signup');
+    res.render('signup', {user: req.user});
 });
 
 router.post('/signup', function(req, res, next){
     // password need to be encrypted
     UserModel.create(req.body, function (err, post) {
         if (err) return next(err);
-        res.redirect('/signin');
+        req.logIn(post, function(err) {
+            res.redirect('/');
+        });
     });
 });
 
-router.get('/signin', function(req, res, next){
-    res.render('signin', {state : ''});
+router.get('/login', function(req, res, next){
+    res.render('login', {state : '', user: req.user});
 });
 
-router.post('/signin', function(req, res, next){
-    UserModel.findOne({'email' : req.body.email, 'password' : req.body.password}, function (err, data) {
+router.post('/login', function(req, res, next){
+    passport.authenticate('local', function(err, user, info) {
         if (err) return next(err);
-
-        if (data == null){
-            res.render('signin', {state : "로그인에 실패했습니다."});
-        } else{
-            console.log("user signed in :"+data.email);
-            res.redirect('/');
+        if (!user) {
+            return res.redirect('/login', {state : "로그인에 실패했습니다."})
         }
-        console.log(data);
+        req.logIn(user, function(err) {
+            if (err) return next(err);
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
+
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
+
+router.get('/forgot', function(req, res) {
+    res.render('forgot', {
+        user: req.user
     });
 });
 

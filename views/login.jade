@@ -30,7 +30,7 @@ block content
                         form(action="/signin", method="post")
                             .row
                                 .input-field.col.s12
-                                    input#email.validate(type='email' name='email')
+                                    input#email.validate(type='email' name='email' autofocus)
                                     label(for='email') Email
                             .row
                                 .input-field.col.s12
@@ -44,4 +44,4 @@ block content
                     .signUpQuestion.right
                         p
                             a(href='/signin') 내 이메일 찾기
-                            a(href='/signin') 내 비밀번호 찾기
+                            a(href='/forgot') 내 비밀번호 찾기

@@ -34,7 +34,7 @@ block content
                         form(action="/signup", method="post")
                             .row
                                 .input-field.col.s12
-                                    input#email.validate(type='email' name="email")
+                                    input#email.validate(type='email' name="email" autofocus)
                                     label(for='email') Email
                             .row
                                 .input-field.col.s12
@@ -47,4 +47,4 @@ block content
                             button.btn.waves-effect.waves-light.right.black.signButton(type='submit', name='action') 가입하기
                     .signUpQuestion.right
                         p 이미 계정이 있으신가요?
-                            a(href='/signin') 로그인
+                            a(href='/login') 로그인
