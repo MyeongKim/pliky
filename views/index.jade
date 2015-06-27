@@ -1,11 +1,94 @@
-// todo tab 으로 바꾸기
-// todo 이미지 object 던져서 받고 for 문으로 뿌리기
-// todo client 가 filter 해서 최신, 인기순 정렬함
+// todo model 에서 파일명 뒤에 시간 따로 저장하기
+// todo model 에서 시간, 마감, 인기 property 똑바로 지정
+// todo data11은 배열.. 배열 element 의 property를 이용해 시간순, 마감순, 인기순으로 정렬(정렬함수사용)
+// todo #heartAlign #newAlign #timeAlign 의 list(a)에 배열 parameter에 3개씩 잘라서 전달, slice(0,3) slice(2,3)..
+// todo 배열을 인자로 받은 list 함수는 thumbnail()에 하나씩 전달
+// todo 배열을 인자로 받은 thumbnail 함수는 object 의 imageId 사용해서 a href, img src 지정
 extends layout
+
+
+
 
 block content
     script.
-        $(document).ready(function () {
+        var data = !{JSON.stringify(data)};
+        //alert(data.length);
+
+        // duedate string sorting function
+        function mostEarlyDuedate(string){
+            // only in case that year is 2015.
+            var stringArray = string.split("2015,");
+            // month sort
+            var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            stringArray.sort(function(a,b){
+                var aMonth = a.split(' ')[1];
+                var bMonth = b.split(' ')[1];
+                if (aMonth == bMonth){
+                    return b.split(' ')[0] - a.split(' ')[0];
+                }else {
+                    return mL.indexOf(bMonth) - mL.indexOf(aMonth);
+                }
+            });
+
+            return stringArray[0];
+        }
+
+        // newest time sorting
+        function timeSort(data){
+            data.sort(function(a,b){
+                return b.fileTime - a.fileTime;
+            });
+            return data;
+        }
+
+        // heart sorting
+        function heartSort(data){
+            data.sort(function(a,b){
+                return b.heart - a.heart;
+            });
+            return data;
+        }
+
+        // duedate sorting
+        function duedateSort(data){
+            data.sort(function(a,b){
+                var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+                var aMonth = mostEarlyDuedate(a.duedate).split(' ')[1];
+                var bMonth = mostEarlyDuedate(b.duedate).split(' ')[1];
+                if (aMonth == bMonth){
+                    return mostEarlyDuedate(b.duedate).split(' ')[0] - mostEarlyDuedate(a.duedate).split(' ')[0];
+                }else {
+                    return mL.indexOf(bMonth) - mL.indexOf(aMonth);
+                }
+            });
+            return data;
+        }
+
+        var heartData = heartSort(data);
+        var timeData = timeSort(data);
+        var duedateData = duedateSort(data);
+
+        var word = duedateData[0]._id;
+
+    script.
+        $(document).ready(function (){
+
+            function alignAutoplay(divId, data){
+                $(divId).find('.autoplay').map(function(e){
+                    $(this).find('div a').attr("href", function(arr){
+                        return "file/" + data[e].imageId[arr];
+                    });
+                    $(this).find('div img').attr("src", function(arr){
+                        return "file/" + data[e].imageId[arr];
+                    });
+                });
+            }
+
+            alignAutoplay("#heartAlign", heartData);
+            alignAutoplay("#newAlign", timeData);
+            alignAutoplay("#timeAlign", duedateData);
+
             $('.autoplay').slick({
                 dots: false,
                 infinite : true,
@@ -47,6 +130,10 @@ block content
             .col.s6
                 h5 Pliky에 처음 오셨나요?
                 p 간단한 소개 영상으로 이용 방법을 알아보세요!
+                - var word = word;
+                script.
+                    var word = "aaaa";
+                p #{word}
         .divider
         .row
             .col.s12
@@ -70,56 +157,295 @@ block content
                                     .circle-clipper.right
                                         .circle
                 +preload
-                +list
-                +list
-                +list
+                //- var h1 = heartData.slice(0,3)
+                //- var h2 = heartData.slice(3,3)
+                //- var h3 = heartData.slice(6,3)
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
             .tabItem#newAlign
                 +preload
-                +list
-                +list
-                +list
+                //- var n1 = timeData.slice(0,3)
+                //- var n2 = timeData.slice(3,3)
+                //- var n3 = timeData.slice(6,3)
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
             .tabItem#timeAlign
                 +preload
-                +list
-                +list
-                +list
-
-        mixin profile
-            .col.s2
-                img.circle.responsive-img(src='images/face.jpg', alt='')
-            .col.s2
-                p.black-text myname
-            .col.s6.offset-s2
-                .row.thumbInfo
-                    .col.s2
-                        i.small.mdi-action-visibility
-                    .col.s2
-                        p 33
-                    .col.s2
-                        i.small.mdi-action-favorite-outline
-                    .col.s2
-                        p 33
-                    .col.s2
-                        i.small.mdi-action-question-answer
-                    .col.s2
-                        p 33
-
-        mixin thumbnail
-            .outer
-                .autoplay
-                    div
-                        a(href="images/face.jpg", data-lightbox="image-1")
-                            img(src="/images/face.jpg" , width='650')
-                    div
-                        a(href="images/sample-1.jpg", data-lightbox="image-1")
-                            img(src="/images/sample-1.jpg", width ='650')
-            .row.profileInfo
-
-        mixin list
-            .row
-                .col.s4
-                    +thumbnail
-                .col.s4
-                    +thumbnail
-                .col.s4
-                    +thumbnail
+                //- var d1 = duedateData.slice(0,3)
+                //- var d2 = duedateData.slice(3,3)
+                //- var d3 = duedateData.slice(6,3)
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                .row
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo
+                    .col.s4
+                        .outer
+                            .autoplay
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/" , width='650')
+                                div
+                                    a(href="file/", data-lightbox="image-1")
+                                        img(src="file/", width ='650')
+                            .row.profileInfo

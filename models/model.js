@@ -12,6 +12,8 @@ var CommitSchema = new mongoose.Schema({
     height: { type: String, default: "#" },
     duedate: { type: String, default: "#" },
     imageId : [String],
+    fileTime : {type: String, default : "#"},
+    heart : {type : Number, default : 0},
     updated_at: { type: Date, default: Date.now },
 });
 

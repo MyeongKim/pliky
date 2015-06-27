@@ -17,7 +17,7 @@ block content
                     th(data-field='height') height
                     th(data-field='duedate') duedate
                     th(data-field='file2') file2
-                    th(data-field='updated_at') updated_at
+                    th(data-field='fileTime') fileTime(Seconds)
             tbody
                 for result in data
                     - var length = result.title.split(",").length
@@ -28,9 +28,10 @@ block content
                     - price_array = result.price.split(",")
                     - reqNumber_array = result.reqNumber.split(",")
                     - width_array = result.width.split(",")
-                    - height_array = result.height.split(", ")
-                    - duedate_array = result.duedate.split(",")
+                    - height_array = result.height.split(",")
+                    - duedate_array = result.duedate.split("2015,")
                     - image_array = result.imageId
+                    - fileTime = result.fileTime
                     - var index = 0
                     while length > index
                         tr
@@ -42,5 +43,6 @@ block content
                             td #{height_array[index]}
                             td #{duedate_array[index]}
                             td
-                               img.materialboxed(src="/file/" + "#{image_array[index].slice(0, -13)}", width="32")
+                               img.materialboxed(src="/file/" + "#{image_array[index]}", width="32")
+                            td #{fileTime}
                         - index++

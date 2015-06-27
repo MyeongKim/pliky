@@ -18,7 +18,20 @@ mongoose.connect('mongodb://localhost:27017/test', function(err) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    Model.find(function(err, data){
+        if (err) return next(err);
+
+        console.log("json data");
+        console.log("length "+ data.length);
+        console.log(data);
+
+        // max length is 9.
+        if( data.length > 9){
+            data.slice(-9,-1);
+        } else{
+            res.render('index', {data : data});
+        }
+    });
 });
 
 router.get('/admin', function(req, res, next) {
@@ -27,6 +40,15 @@ router.get('/admin', function(req, res, next) {
         res.render('admin', {data : data});
     });
 });
+
+router.get('/signup', function(req, res, next){
+    res.render('signup');
+});
+
+router.get('/signin', function(req, res, next){
+    res.render('signin');
+});
+
 
 router.get('/enrollment', function (req, res, next) {
     res.render('enrollment');
@@ -69,8 +91,7 @@ router.all('/uploads', function(req, res, next) {
                         var path = req.files.file2[i].path;
                         var type = req.files.file2[i].mimetype;
                         var read_stream =  fs.createReadStream(dirname + '/bin/' + path);
-                        var fullName = filename+fileTime;
-                        imageId.push(fullName);
+                        imageId.push(filename);
                         writestream = gfs.createWriteStream({
                             filename: filename
                         });
@@ -84,6 +105,7 @@ router.all('/uploads', function(req, res, next) {
             function(conn, callback) {
                 console.log("connection close");
                 req.body.imageId = imageId;
+                req.body.fileTime = fileTime;
                 Model.create(req.body, function (err, post) {
                     if (err) return next(err);
                     callback(null, conn);
@@ -92,7 +114,7 @@ router.all('/uploads', function(req, res, next) {
         ],
         function(err, conn) {
             console.log(' upload success !');
-            res.send("good");
+            res.redirect("/admin");
             conn.close();
         });
 });

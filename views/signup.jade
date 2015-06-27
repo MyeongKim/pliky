@@ -1,0 +1,13 @@
+//
+   Created by nuko on 2015. 6. 26..
+
+extends layout
+
+block content
+    .container
+        .row
+            form.col.s12
+                .row
+                    .input-field.col.s12
+                        input#email.validate(type='email')
+                        label(for='email', data-error='wrong', data-success='right') Email
