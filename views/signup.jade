@@ -6,8 +6,31 @@ extends layout
 block content
     .container
         .row
-            form.col.s12
-                .row
-                    .input-field.col.s12
-                        input#email.validate(type='email')
-                        label(for='email', data-error='wrong', data-success='right') Email
+            .col.s12.m8.offset-m2.l6.offset-l3.z-depth-1
+                .row.signDiv
+                    .col.s4.logos.black
+                        p.white-text 5초만에 가입하기
+                        a.social-button(href="#",class='facebook')
+                            i.fa(class="fa-"+'facebook')
+                        a.social-button(href="#",class='twitter')
+                            i.fa(class="fa-"+'twitter')
+                        a.social-button(href="#",class='google')
+                            i.fa(class="fa-"+'google')
+                    .col.s8.signInput
+                        .form
+                            .row
+                                .input-field.col.s12
+                                    input#email.validate(type='email')
+                                    label(for='email') Email
+                            .row
+                                .input-field.col.s12
+                                    input#password.validate(type='password')
+                                    label(for='password') Password
+                            .row
+                                .input-field.col.s12
+                                    input#passwordAgain.validate(type='password')
+                                    label(for='passwordAgain') Password(again)
+                            button.btn.waves-effect.waves-light.right.black.signButton(type='submit', name='action') 가입하기
+                    .signUpQuestion.right
+                        p 이미 계정이 있으신가요?
+                            a(href='/signin') 로그인

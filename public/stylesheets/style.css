@@ -85,3 +85,29 @@ body{
 	top : 100px;
 	left: 45%;
 }
+
+/*sign up page*/
+.logos{
+    text-align: center;
+    height : 350px;
+}
+
+.signInput{
+    height: 350px;
+}
+
+.signButton{
+    margin-top: 30px;
+    bottom: 0;
+}
+
+.signUpQuestion{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.signUpQuestion a {
+    margin-left: 30px;
+}
+.signDiv{
+    margin-top: 30px;
+}
