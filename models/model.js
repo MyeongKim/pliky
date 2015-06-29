@@ -60,20 +60,6 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 var Commit = mongoose.model('Commit', CommitSchema);
 var User = mongoose.model('User', UserSchema);
 
-passport.use(new LocalStrategy(function(username, password, done) {
-    User.findOne({ email : username }, function(err, user) {
-        if (err) return done(err);
-        if (!user) return done(null, false, { message: 'Incorrect username.' });
-        user.comparePassword(password, function(err, isMatch) {
-            if (isMatch) {
-                return done(null, user);
-            } else {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-        });
-    });
-}));
-
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
@@ -84,7 +70,27 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+passport.use(new LocalStrategy({
+    usernameField: 'email'
+}, function(email, password, done) {
+    User.findOne({ email : email }, function(err, user) {
+        if (err) {
+            return done(err);
+        }
+        if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+        user.comparePassword(password, function(err, isMatch) {
+            if (isMatch) {
+                return done(null, user);
+            } else {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+        });
+    });
+}));
+
 module.exports = {
     CommitModel : Commit,
-    UserModel : User
+    UserModel : User,
 };

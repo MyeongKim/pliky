@@ -40,4 +40,14 @@ html
                                 label(for='search')
                                     i.mdi-action-search
                                 i.mdi-navigation-close
+        .container
+            if messages.error
+                blockquote
+                    div= messages.error
+            if messages.info
+                blockquote
+                    div= messages.info
+            if messages.success
+                blockquote
+                    div= messages.success
         block content
