@@ -3,8 +3,6 @@
  */
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 
 
 var CommitSchema = new mongoose.Schema({
@@ -22,11 +20,15 @@ var CommitSchema = new mongoose.Schema({
 });
 
 var UserSchema = new mongoose.Schema({
-    email : { type: String, required: true, unique: true },
+    email : { type: String, required: false, unique: true },
+    twitterUsername : { type : String, unique : true},
     nickname : { type : String, default : "IamUser"},
-    password : { type: String, required: true },
+    password : { type: String, required: false },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    signupToken: String,
+    signupExpires : Date,
+    valid : { type: Boolean, default: true },
     //passwordHash : String,
     //passwordSalt : String,
     following : [String],
@@ -59,36 +61,6 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 var Commit = mongoose.model('Commit', CommitSchema);
 var User = mongoose.model('User', UserSchema);
-
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-        done(err, user);
-    });
-});
-
-passport.use(new LocalStrategy({
-    usernameField: 'email'
-}, function(email, password, done) {
-    User.findOne({ email : email }, function(err, user) {
-        if (err) {
-            return done(err);
-        }
-        if (!user) {
-            return done(null, false, { message: 'Incorrect username.' });
-        }
-        user.comparePassword(password, function(err, isMatch) {
-            if (isMatch) {
-                return done(null, user);
-            } else {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-        });
-    });
-}));
 
 module.exports = {
     CommitModel : Commit,

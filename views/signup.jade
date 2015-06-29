@@ -16,6 +16,10 @@ block content
                     e.preventDefault();
                 }
             });
+            var state = !{JSON.stringify(state)};
+            if (state !=''){
+                alert(state);
+            }
         });
 
     .container
@@ -24,11 +28,11 @@ block content
                 .row.signDiv
                     .col.s4.logos.black
                         p.white-text 5초만에 가입하기
-                        a.social-button(href="#",class='facebook')
-                            i.fa(class="fa-"+'facebook')
-                        a.social-button(href="#",class='twitter')
+                        a.social-button(href="/auth/twitter",class='twitter')
                             i.fa(class="fa-"+'twitter')
-                        a.social-button(href="#",class='google')
+                        a.social-button(href="/auth/facebook",class='facebook')
+                            i.fa(class="fa-"+'facebook')
+                        a.social-button(href="/auth/google",class='google')
                             i.fa(class="fa-"+'google')
                     .col.s8.signInput
                         form(action="/signup", method="post")

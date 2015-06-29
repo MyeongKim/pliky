@@ -5,7 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var async = require('async');
 var fs = require('fs');
-var passport = require('passport');
+var passport = require('../config/passport');
 var Grid = require('gridfs-stream');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
@@ -51,10 +51,85 @@ router.get('/signup', function(req, res, next){
 });
 
 router.post('/signup', function(req, res, next){
-    UserModel.create(req.body, function (err, post) {
+    UserModel.findOne( {email : req.body.email}, function(err,data){
         if (err) return next(err);
-        req.logIn(post, function(err) {
-            res.redirect('/');
+        if(data){
+            res.render('signup', {state : '사용중인 이메일입니다.'});
+        }else{
+            var user = new UserModel({
+                email : req.body.email,
+                password : req.body.password,
+                valid : false
+            });
+            user.save(function(err) {
+                async.waterfall([
+                    function(done) {
+                        crypto.randomBytes(20, function(err, buf) {
+                            var token = buf.toString('hex');
+                            done(err, token);
+                        });
+                    },
+                    function(token, done) {
+                        UserModel.findOne({ email: req.body.email }, function(err, user) {
+                            if (!user) {
+                                req.flash('error', 'No account with that email address exists.');
+                                return res.redirect('/signup');
+                            }
+
+                            user.signupToken = token;
+                            user.signupExpires = Date.now() + 3600000; // 1 hour
+
+                            user.save(function(err) {
+                                done(err, token, user);
+                            });
+                        });
+                    },
+                    function(token, user, done) {
+                        var smtpTransport = nodemailer.createTransport({
+                            service: 'Gmail',
+                            auth: {
+                                user: 'ming3772@gmail.com',
+                                pass: "I'llgotoyou"
+                            }
+                        });
+                        var mailOptions = {
+                            to: user.email,
+                            from: 'signup@demo.com',
+                            subject: 'Pliky 가입 인증 메일',
+                            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                            'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                            'http://' + req.headers.host + '/signup/' + token + '\n\n' +
+                            'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                        };
+                        smtpTransport.sendMail(mailOptions, function(err) {
+                            req.flash('info', '인증 이메일이 ' +user.email+'로 발송되었습니다.');
+                            done(err, 'done');
+                        });
+                    }
+                ], function(err) {
+                    if (err) return next(err);
+                    res.redirect('/login');
+                });
+            });
+        }
+    });
+});
+
+
+router.get('/signup/:token', function(req, res) {
+    UserModel.findOne({ signupToken: req.params.token, signupExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+            req.flash('error', 'Password reset token is invalid or has expired.');
+            return res.redirect('/signup');
+        }
+        user.signupToken = undefined;
+        user.signupExpires = undefined;
+        user.valid = true;
+
+        user.save(function(err) {
+            req.logIn(user, function(err) {
+                res.redirect('/');
+            });
         });
     });
 });
@@ -70,8 +145,11 @@ router.post('/login', function(req, res, next){
             return next(err);
         }
         if (!user) {
-            console.log("aa");
             return res.redirect('/login')
+        }
+        if (!user.valid){
+            req.flash('error', '인증 완료된 계정이 아닙니다.');
+            return res.redirect('/login');
         }
         req.logIn(user, function(err) {
             if (err) {
