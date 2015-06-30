@@ -9,6 +9,7 @@ var passport = require('../config/passport');
 var Grid = require('gridfs-stream');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
+var paginate = require('express-paginate');
 
 var CommitModel = require('../models/model.js').CommitModel;
 var UserModel = require('../models/model.js').UserModel;
@@ -372,6 +373,23 @@ router.get('/file/:id',function(req,res,next){
             } else {
                 res.json('File Not Found');
                 conn.close();
+            }
+        });
+    });
+});
+
+router.get('/mypage', function(req,res,next){
+
+    CommitModel.paginate({}, { page: req.query.page, limit: req.query.limit }, function(err, commits, pageCount, itemCount) {
+        if (err) return next(err);
+        res.format({
+            html: function() {
+                res.render('mypage', {
+                    commits: commits,
+                    pageCount: pageCount,
+                    itemCount: itemCount,
+                    active : 1
+                });
             }
         });
     });

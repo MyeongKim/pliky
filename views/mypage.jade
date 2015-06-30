@@ -1,0 +1,146 @@
+//
+   Created by nuko on 2015. 6. 30..
+
+extends layout
+
+block content
+    script.
+        $(document).ready(function(){
+            var active = #{active};
+            $('.tabs').tabs('select_tab', 'test'+active);
+        });
+    .container
+        .row
+            .col.s12
+                .row.upperDiv
+                    .col.m4
+                        .profileDivDiv.grey.darken-4.center-align.z-depth-2
+                            h5.white-text(style="margin-top: 0px; padding-top: 10px;") 누코쨔마
+                            img.circle(src='/images/profile_siro.jpg', style='width:100px; height:100px')
+                            p.white-text.text-darken-4 잉여입니다. 그리고 싶을 때 그림을 그립니다.
+                                .row
+                                    .col.m2.hide-on-small-only  
+                                    .col.m2.s6.center-align
+                                        a(href='')
+                                            i.white-text.small.mdi-action-face-unlock
+                                    .col.m2.s6.center-align
+                                        a(href='')
+                                            i.white-text.small.mdi-action-highlight-remove
+                                    .col.m2.s6.center-align
+                                        a(href='')
+                                            i.white-text.small.mdi-action-alarm-on
+                                    .col.m2.s6.center-align
+                                        a(href='')
+                                            i.white-text.small.mdi-action-account-balance
+                                    .col.m2(class='.hide-on-small-only')
+                    .col.m8
+                        .profileNoticeDiv.z-depth-1
+                            .profieNoticeTitle.right-align
+                                span 최근 활동
+                            table.hoverable
+                                tbody
+                                    tr
+                                        td
+                                            i.Small.material-icons new_releases
+                                        td
+                                            strong.text-darken-4 커미션이 진행중입니다.
+                                        td  지금
+                                    tr
+                                        td
+                                            i.Small.material-icons power_settings_new
+                                        td
+                                            span.text-darken-4 "트위터"를 통해 가입한 회원입니다.
+                                        td  10시간 전
+                                    tr
+                                        td
+                                            i.Small.material-icons perm_identity
+                                        td
+                                            span.text-darken-4 프로필을 업데이트 했습니다.
+                                        td  10시간 전
+                                    tr
+                                        td
+                                            i.Small.material-icons perm_media
+                                        td
+                                            span.text-darken-4 일러스트를 새로 업데이트했습니다.
+                                        td  7시간 전
+                                    tr
+                                        td
+                                            i.Small.material-icons perm_media
+                                        td
+                                            span.text-darken-4 일러스트를 새로 업데이트했습니다.
+                                        td  7시간 전
+
+                    .col.s12
+                        .divider
+                        ul.tabs
+                            li.tab.col.s3
+                                a(href='#test1') 외주작업
+                            li.tab.col.s3
+                                a(href='#test2') 끄적끄적
+                            li.tab.col.s3
+                                a(href='#test3') 낙서
+                        #test1.col.s12
+                            .row
+                                .col.s12.m12.l12.portfolio-holder
+                                    // change materialboxed to lightbox2
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                .col.s12.right-align.portfolio-more
+                                    if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+                                        .navigation.well-sm#pagination
+                                            ul.pager
+                                                if paginate.hasPreviousPages
+                                                    li.previous
+                                                        a(href=paginate.href(true)).prev
+                                                            i.fa.fa-arrow-circle-left
+                                                            |  Previous
+                                                if paginate.hasNextPages(pageCount)
+                                                    li.next
+                                                        a(href=paginate.href()).next
+                                                            | Next&nbsp;
+                                                            i.fa.fa-arrow-circle-right
+                                        ul.pagination
+                                            li.disabled
+                                                a(href='#!')
+                                                    i.material-icons chevron_left
+                                            li.active
+                                                a(href='#!') 1
+                                            li.waves-effect
+                                                a(href='#!') 2
+                                            li.waves-effect
+                                                a(href='#!') 3
+                                            li.waves-effect
+                                                a(href='#!') 4
+                                            li.waves-effect
+                                                a(href='#!') 5
+                                            li.waves-effect
+                                                a(href='#!')
+                                                    i.material-icons chevron_right
+                        #test2.col.s12
+                            .row
+                                .col.s12.m12.l12.portfolio-holder
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                .col.s12.right-align.portfolio-more
+                                    a(href='#')
+                                        span 더보기
+                        #test3.col.s12
+                            .row
+                                .col.s12.m12.l12.portfolio-holder
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                                .col.s12.right-align.portfolio-more
+                                    a(href='#')
+                                        span 더보기

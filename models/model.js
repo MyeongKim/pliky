@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-
+var mongoosePaginate = require('mongoose-paginate');
 
 var CommitSchema = new mongoose.Schema({
     title: { type: String, default: "#" },
@@ -58,6 +58,8 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
         cb(null, isMatch);
     });
 };
+
+CommitSchema.plugin(mongoosePaginate);
 
 var Commit = mongoose.model('Commit', CommitSchema);
 var User = mongoose.model('User', UserSchema);

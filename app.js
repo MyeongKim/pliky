@@ -14,6 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var async = require('async');
 var crypto = require('crypto');
 var flash = require('express-flash');
+var paginate = require('express-paginate');
 
 var app = express();
 // view engine setup
@@ -32,6 +33,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(paginate.middleware(2, 50));
 
 app.use('/uploads', express.static(__dirname + "/uploads"));
 app.use(multer({dest: './uploads/'}));
