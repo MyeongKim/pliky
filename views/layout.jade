@@ -2,22 +2,37 @@ doctype html
 html
     head
         title plicy
-        link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='stylesheet', href='/stylesheets/lightbox.css')
         link(rel='stylesheet', href='/stylesheets/icon.css')
         link(rel='stylesheet', href='/stylesheets/font-awesome-4.3.0/css/font-awesome.min.css')
         link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
         link(href='http://theeluwin.github.io/NotoSansKR-Hestia/stylesheets/NotoSansKR-Hestia.css' rel='stylesheet' type='text/css')
-        link(rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css")
+        link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css')
+        link(rel='stylesheet', type='text/css', href='//cdn.jsdelivr.net/jquery.slick/1.5.0/slick-theme.css')
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css")
         link(rel='stylesheet', href='/stylesheets/materialize.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
         script(src='//code.jquery.com/jquery-1.11.3.min.js')
         script(src='//code.jquery.com/jquery-migrate-1.2.1.min.js')
         script(type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js")
         script(src="/js/lightbox.js")
         script(src="/js/materialize.min.js")
         //script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js")
+        script.
+            $(document).ready(function(){
+                $(".dropdown-button").dropdown();
+            });
     body
+        ul#dropdown1.dropdown-content
+            li
+                a(href='/account').black-text 내 계정
+            li
+                a(href='/coin').black-text 코인 결제
+            li
+                a(href='/portfolio').black-text 내 포트폴리오
+            li.divider
+            li
+                a(href='/faq').black-text FAQ
         nav
             .nav-wrapper.grey.darken-4
                 a.brand-logo(href='/') Pliky
@@ -41,6 +56,10 @@ html
                                 label(for='search')
                                     i.mdi-action-search
                                 i.mdi-navigation-close
+                    li
+                        a.dropdown-button(href='#!', data-activates='dropdown1')
+                            i.material-icons.right toc
+
         .container
             if messages.error
                 blockquote

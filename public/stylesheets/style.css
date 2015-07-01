@@ -113,7 +113,7 @@ body{
 }
 
 .profileNoticeDiv{
-    max-height: 250px;
+    max-height: 290px;
     overflow: auto;
 }
 
@@ -144,4 +144,86 @@ body{
 
 .tabs {
     color : black; !important;
+}
+
+/* layout dropdown settings */
+#dropdown1 a {
+    font-size: small;
+}
+
+.dropdown-button{
+    width: 150px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50px;
+}
+
+.footer .center-align{
+    margin-top: 5px;
+}
+
+.commitHistory{
+    height: 40px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.commitHistory div p{
+    background-color: #efebe9;
+    /*border: solid;*/
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+}
+
+.commitHistory .greenHistory{
+    background-color: rgba(0, 123, 5, 0.48);
+}
+.slick-prev {
+    /*margin-left: 10px;*/
+    margin-top: -20px; !important;
+}
+
+.slick-next {
+    /*margin-right: 10px;*/
+    margin-top: -20px; !important;
+}
+
+.slick-prev:before, .slick-next:before {
+    color:black !important;
+}
+
+.slick-slider{
+    margin-bottom: 0; !important;
+    height: 40px;
+}
+
+.profileDivDiv a{
+    font-size: small;
+}
+
+.profileDivDiv a p{
+     font-size: large;
+ }
+
+.profileDivDiv i{
+    margin-top: 25%;
+}
+
+/* portfolio page settings */
+.portfolioAdd button {
+    margin-bottom: 10px;
+}
+
+.portfolioGroup h5{
+    margin-top: 18px;
+}
+
+.portfolioGroup a.black-text {
+    font-size: small;
 }

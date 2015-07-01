@@ -1,0 +1,77 @@
+//
+   Created by nuko on 2015. 6. 30..
+
+extends layout
+
+block content
+    .container
+        .row.grey.lighten-3
+            .col.m10.offset-m1.s12
+                h5.center-align 계정 설정
+                .row
+                    form.col.s12
+                        .row
+                            .input-field.col.m6.s12
+                                input#first_name.validate(type='text')
+                                label(for='first_name') First Name
+                            .input-field.col.m6.s12
+                                input#last_name.validate(type='text')
+                                label(for='last_name') Last Name
+                        .row
+                            .input-field.col.m6.s12
+                                i.mdi-content-mail.prefix
+                                input#email.validate(type='email', required='')
+                                label(for='email') Email
+                            .input-field.col.m6.s12
+                                i.mdi-maps-store-mall-directory.prefix
+                                input#company.validate(type='text')
+                                label(for='company') Company
+                        .row
+                            .input-field.col.s12
+                                textarea#message.materialize-textarea
+                                label(for='message') Message
+                        .row
+                            .input-field.col.s12
+                                label(for='budget') Budget
+                                br
+                            .input-field.col.s12
+                                select#budget.browser-default
+                                    option(value='', selected='', disabled='') Choose your option
+                                    option(value='1') < $4000
+                                    option(value='2') $4000 - $9000
+                                    option(value='3') > $9000
+                        .row
+                            .input-field.col.s12
+                                label How Did You Find Us?
+                                br
+                            .input-field.col.m3.s6.center-align
+                                input#google(name='group1', type='radio')
+                                label(for='google') Google
+                            .input-field.col.m3.s6.center-align
+                                input#customer(name='group1', type='radio')
+                                label(for='customer') Customer
+                            .input-field.col.m3.s6.center-align
+                                input#store(name='group1', type='radio')
+                                label(for='store') Store
+                            .input-field.col.m3.s6.center-align
+                                input#other(name='group1', type='radio')
+                                label(for='other') Other
+                        .divider
+                        .row
+                            .input-field.col.s12
+                                label Communication Preferences
+                                br
+                            .input-field.col.m4.s12.center-align
+                                input#emailComm(name='group2', type='checkbox')
+                                label(for='emailComm') Email
+                            .input-field.col.m4.s12.center-align
+                                input#callComm(name='group2', type='checkbox')
+                                label(for='callComm') Call Me
+                            .input-field.col.m4.s12.center-align
+                                input#newsletter(name='group2', type='checkbox')
+                                label(for='newsletter') Newsletter
+                        .divider
+                        .row
+                            .col.m12
+                                p.right-align
+                                    button.btn.btn-large.waves-effect.waves-light.black(type='button', name='action') 저장하기

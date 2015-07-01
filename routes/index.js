@@ -379,7 +379,6 @@ router.get('/file/:id',function(req,res,next){
 });
 
 router.get('/mypage', function(req,res,next){
-
     CommitModel.paginate({}, { page: req.query.page, limit: req.query.limit }, function(err, commits, pageCount, itemCount) {
         if (err) return next(err);
         res.format({
@@ -393,6 +392,22 @@ router.get('/mypage', function(req,res,next){
             }
         });
     });
+});
+
+router.get('/account', function(req,res,next){
+    res.render('account');
+});
+
+router.get('/faq', function(req,res,next){
+    res.render('faq');
+});
+
+router.get('/portfolio', function(req,res,next){
+    res.render('portfolio');
+});
+
+router.get('/coin', function(req,res,next){
+    res.render('coin');
 });
 
 module.exports = router;

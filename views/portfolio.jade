@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    .container
+        .row.portfolioGroup
+            .col.s2
+                h5.center-align 낙서
+            .col.s4
+                a.dropdown-button.btn.grey.darken-4(href='#', data-activates='portfolioDropdown') 그룹선택
+                ul#portfolioDropdown.dropdown-content
+                    li
+                        a.black-text(href='#!') 낙서
+                    li
+                        a.black-text(href='#!') 끄적끄적
+                    li
+                        a.black-text(href='#!') 외주
+        ul.collapsible(data-collapsible='accordion')
+            li
+                .collapsible-header.grey.darken-4
+                    i.material-icons.white-text add
+                    span.white-text 추가하기
+                .collapsible-body.portfolioAdd
+                    .container.center-align
+                        form(action='#',enctype='multipart/form-data')
+                            .row
+                                .file-field.input-field.col.s12
+                                    .btn.grey.darken-4
+                                        span 파일 선택
+                                        input(type='file', multiple)
+                                    .file-path-wrapper
+                                        input.file-path(type='text')
+                                .input-field.col.s12
+                                    textarea#textarea1.materialize-textarea
+                                    label(for='textarea1') 설명
+                            button.btn-floating.waves-effect.waves-light.red(type='submit', name='action')
+                                i.material-icons add
+        .row
+            .col.s12.m12.l12.portfolio-holder
+                img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+                img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png')
+            .col.s12.right-align.portfolio-more
+                a(href='#')
+                    span 1
+                    span 2
+                    span 3
+                    span 4
+                    span pagination
