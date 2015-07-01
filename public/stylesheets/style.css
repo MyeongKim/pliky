@@ -227,3 +227,8 @@ body{
 .portfolioGroup a.black-text {
     font-size: small;
 }
+
+/* coin page settings */
+.myCoinInfo h5{
+    text-decoration: underline;
+}
