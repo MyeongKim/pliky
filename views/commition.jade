@@ -134,3 +134,16 @@ block content
                                 .col.s9
                                     span.red-text.text-darken-3 답변입니다.
                                 .col.s2
+        #newComment.modal
+            .modal-content
+                .container
+                    i.large.material-icons.center-align comment
+                    form.row
+                        .input-field.col.s12
+                            textarea#textarea1.materialize-textarea
+                            label(for='textarea1') Textarea
+
+
+            .modal-footer
+                a.modal-action.waves-effect.black.waves-light.btn(href='#!') 작성
+                a.modal-action.modal-close.waves-effect.black.waves-light.btn(href='#!') 취소

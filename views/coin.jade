@@ -18,67 +18,57 @@ block content
 
                     .col.s12
                         .row
-                            .input-field.col.s12
-                                label 코인 상품 선택
-                                br
-                                br
-                            .col.s12
-                                table.hoverable.white
-                                    tbody
-                                        tr
-                                            td
-                                                input#google22(name='group1', type='radio')
-                                            td  21코인
-                                            td  3,900원
-                                        tr
-                                            td
-                                                i.Small.material-icons power_settings_new
-                                            td  61코인 10코인 더!
-                                            td  9,900원
-                                        tr
-                                            td
-                                                i.Small.material-icons perm_identity
-                                            td  131코인 / 50포인트 20코인 더!
-                                            td  19,900원
-                                        tr
-                                            td
-                                                i.Small.material-icons perm_media
-                                            td  271코인 / 100포인트 40코인 더!
-                                            td  39,900원
-                                        tr
-                                            td
-                                                i.Small.material-icons perm_media
-                                            td  501코인 / 300포인트 70코인 더!
-                                            td  69,900원
-                                        tr
-                                            td
-                                                i.Small.material-icons perm_media
-                                            td  501코인 / 300포인트 70코인 더!
-                                            td  99,900원
-                            .input-field.col.s12
-                                label 결제 수단 선택
-                                br
-                                br
-                            .col.s12
-                                .row.white
-                                    .input-field.col.m3.s6.center-align
-                                        input#google(name='group1', type='radio')
-                                        label(for='google') 신용카드
-                                    .input-field.col.m3.s6.center-align
-                                        input#customer(name='group1', type='radio')
-                                        label(for='customer') 휴대폰결제
-                                    .input-field.col.m3.s6.center-align
-                                        input#store(name='group1', type='radio')
-                                        label(for='store') 계좌이체
-                                    .input-field.col.m3.s6.center-align
-                                        input#other(name='group1', type='radio')
-                                        label(for='other') 도서문화상품권
-                                    .input-field.col.m3.s6.center-align
-                                        input#other(name='group1', type='radio')
-                                        label(for='other') 해피머니
-                                    .input-field.col.m3.s6.center-align
-                                        input#other(name='group1', type='radio')
-                                        label(for='other') 문화상품권
+                            .col.s12.white
+
+                                form(action='#').selectPay
+                                    p.white-text 코인 상품 선택
+                                    div
+                                        input#select1(name='group1', type='radio')
+                                        label.black-text(for='select1') 21코인
+                                        span.right 3,900원
+                                    div
+                                        input#select2(name='group1', type='radio')
+                                        label.black-text(for='select2') 61코인 / 10코인 더!
+                                        span.right 9,900원
+                                    div
+                                        input#select3(name='group1', type='radio')
+                                        label.black-text(for='select3') 131코인 / 50포인트 20코인 더!
+                                        span.right 19,900원
+                                    div
+                                        input#select4(name='group1', type='radio')
+                                        label.black-text(for='select4') 271코인 / 100포인트 40코인 더!
+                                        span.right 39,900원
+                                    div
+                                        input#select5(name='group1', type='radio')
+                                        label.black-text(for='select5') 501코인 / 300포인트 70코인 더!
+                                        span.right 69,900원
+                                    div
+                                        input#select6(name='group1', type='radio')
+                                        label.black-text(for='select6') 501코인 / 300포인트 70코인 더!
+                                        span.right 99,900원
+                                    br
+                                    br
+                                    p.white-text 결제 유형 선택
+                                    .typeSelect
+                                        .row
+                                            .input-field.col.m3.s6.center-align
+                                                input#type1(name='group1', type='radio')
+                                                label.black-text(for='type1') 신용카드
+                                            .input-field.col.m3.s6.center-align
+                                                input#type2(name='group1', type='radio')
+                                                label.black-text(for='type2') 휴대폰결제
+                                            .input-field.col.m3.s6.center-align
+                                                input#type3(name='group1', type='radio')
+                                                label.black-text(for='type3') 계좌이체
+                                            .input-field.col.m3.s6.center-align
+                                                input#type4(name='group1', type='radio')
+                                                label.black-text(for='type4') 도서문화상품권
+                                            .input-field.col.m3.s6.center-align
+                                                input#type5(name='group1', type='radio')
+                                                label.black-text(for='type5') 해피머니
+                                            .input-field.col.m3.s6.center-align
+                                                input#type6(name='group1', type='radio')
+                                                label.black-text(for='type6') 문화상품권
                         .row
                             .col.m12
                                 br

@@ -237,6 +237,18 @@ body{
     text-decoration: underline;
 }
 
+.selectPay{
+    margin : 10px 20px;
+}
+
+.selectPay div{
+    margin : 30px 0;
+}
+
+.selectPay p{
+    background-color: black;
+    padding-left: 5px;
+}
 /* commition page settings */
 .csBlockquotes{
     background-color: black;
@@ -280,4 +292,8 @@ body{
     height: 100px; !important;
     padding : 0 50px;
     padding-top: 25px;
+}
+
+#newComment a{
+    margin : 10px;
 }
