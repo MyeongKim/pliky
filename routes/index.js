@@ -281,7 +281,7 @@ router.post('/reset/:token', function(req, res) {
 });
 
 router.get('/enrollment', function (req, res, next) {
-    res.render('enrollment');
+    res.render('enrollment', {user : req.user});
 });
 
 router.post('/enrollment', function(req, res){
@@ -379,19 +379,15 @@ router.get('/file/:id',function(req,res,next){
 });
 
 router.get('/mypage', function(req,res,next){
-    CommitModel.paginate({}, { page: req.query.page, limit: req.query.limit }, function(err, commits, pageCount, itemCount) {
-        if (err) return next(err);
-        res.format({
-            html: function() {
-                res.render('mypage', {
-                    commits: commits,
-                    pageCount: pageCount,
-                    itemCount: itemCount,
-                    active : 1
-                });
-            }
-        });
-    });
+    res.format({
+        'html' : function(){
+            res.render('mypage', {user : req.user, active : 1});
+        },
+        'json' : function(){
+            var data = {}; // img addresses..
+            res.send(data);
+        }
+});
 });
 
 router.get('/account', function(req,res,next){
@@ -410,4 +406,7 @@ router.get('/coin', function(req,res,next){
     res.render('coin');
 });
 
+router.get('/cs',function(req,res,next){
+    res.render('commition');
+});
 module.exports = router;

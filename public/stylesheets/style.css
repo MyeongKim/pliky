@@ -146,6 +146,10 @@ body{
     color : black; !important;
 }
 
+.portfolio-more{
+    margin-bottom: 30px;
+}
+
 /* layout dropdown settings */
 #dropdown1 a {
     font-size: small;
@@ -184,23 +188,26 @@ body{
 .commitHistory .greenHistory{
     background-color: rgba(0, 123, 5, 0.48);
 }
-.slick-prev {
+.commitHistory .slick-prev {
     /*margin-left: 10px;*/
     margin-top: -20px; !important;
 }
 
-.slick-next {
+.commitHistory .slick-next {
     /*margin-right: 10px;*/
     margin-top: -20px; !important;
 }
 
-.slick-prev:before, .slick-next:before {
+.commitHistory .slick-prev:before, .slick-next:before {
     color:black !important;
+}
+
+.commitHistory .slick-slider{
+    height: 40px;
 }
 
 .slick-slider{
     margin-bottom: 0; !important;
-    height: 40px;
 }
 
 .profileDivDiv a{

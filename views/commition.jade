@@ -1,0 +1,64 @@
+//
+   Created by nuko on 2015. 7. 2..
+
+extends layout
+
+block content
+    script.
+        $(document).ready(function(){
+            var active = #{active};
+            $('.tabs').tabs('select_tab', 'test'+active);
+        });
+    .container
+        .row.upperDiv
+            .col.m4
+                .profileDivDiv.grey.darken-4.center-align.z-depth-2
+                    h5.white-text(style="margin-top: 0px; padding-top: 10px;") 누코쨔마
+                    img.circle(src='/images/profile_siro.jpg', style='width:100px; height:100px')
+                    p.white-text.text-darken-4 잉여입니다. 그리고 싶을 때 그림을 그립니다.
+                        .row.profileLinks
+                            .col.s4.center-align
+                                a(href='').white-text 팔로잉
+                                    p 20
+                            .col.s4.center-align
+                                a(href='').white-text 팔로워
+                                    p 135
+                            .col.s4.center-align
+                                a(href='/portfolio')
+                                    i.red-text.small.material-icons add
+            .col.m8
+                .profileNoticeDiv.z-depth-1
+                    .profieNoticeTitle.right-align
+                        span 최근 활동
+                    table.hoverable
+                        tbody
+                            tr
+                                td
+                                    i.Small.material-icons new_releases
+                                td
+                                    strong.text-darken-4 커미션이 진행중입니다.
+                                td  지금
+                            tr
+                                td
+                                    i.Small.material-icons power_settings_new
+                                td
+                                    span.text-darken-4 "트위터"를 통해 가입한 회원입니다.
+                                td  10시간 전
+                            tr
+                                td
+                                    i.Small.material-icons perm_identity
+                                td
+                                    span.text-darken-4 프로필을 업데이트 했습니다.
+                                td  10시간 전
+                            tr
+                                td
+                                    i.Small.material-icons perm_media
+                                td
+                                    span.text-darken-4 일러스트를 새로 업데이트했습니다.
+                                td  7시간 전
+                            tr
+                                td
+                                    i.Small.material-icons perm_media
+                                td
+                                    span.text-darken-4 일러스트를 새로 업데이트했습니다.
+                                td  7시간 전

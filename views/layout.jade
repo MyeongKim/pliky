@@ -45,8 +45,12 @@ html
                     else
                         li
                             a(href='/login') 로그인
-                    li
-                        a(href='/signup') 회원가입
+                    if user
+                        li
+                            a(href='/mypage') ming3772
+                    else
+                        li
+                            a(href='/signup') 회원가입
                     li
                         a(href='/enrollment') 등록하기
                     li
