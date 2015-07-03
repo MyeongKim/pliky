@@ -148,9 +148,6 @@ block content
                                     .circle-clipper.right
                                         .circle
                 +preload
-                //- var h1 = heartData.slice(0,3)
-                //- var h2 = heartData.slice(3,3)
-                //- var h3 = heartData.slice(6,3)
                 .row
                     .col.s4
                         .outer
@@ -161,7 +158,19 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            mixin profileInfo
+                                .profileInfo.black-text.grey.lighten-3
+                                    img(src="images/profile_siro.jpg" alt="" class="circle" height='30px')
+                                    .infoText.grey-text.text-darken-1
+                                        a.blue-text.text-darken-1(href="#") 유유
+                                    a.right.blue-text.text-darken-1(href='/cs') more
+                                    .infoText.right.grey-text.text-darken-1
+                                        i.fa.fa-eye
+                                        span 120
+                                        i.fa.fa-heartbeat
+                                        span 44
+                            +profileInfo
+
                     .col.s4
                         .outer
                             .autoplay
@@ -171,7 +180,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -181,7 +190,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                 .row
                     .col.s4
                         .outer
@@ -192,7 +201,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -202,7 +211,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -212,7 +221,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                 .row
                     .col.s4
                         .outer
@@ -223,7 +232,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -233,7 +242,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -243,12 +252,9 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
             .tabItem#newAlign
                 +preload
-                //- var n1 = timeData.slice(0,3)
-                //- var n2 = timeData.slice(3,3)
-                //- var n3 = timeData.slice(6,3)
                 .row
                     .col.s4
                         .outer
@@ -259,7 +265,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -269,7 +275,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -279,7 +285,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                 .row
                     .col.s4
                         .outer
@@ -290,7 +296,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -300,7 +306,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -310,7 +316,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                 .row
                     .col.s4
                         .outer
@@ -321,7 +327,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -331,7 +337,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -341,12 +347,9 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
             .tabItem#timeAlign
                 +preload
-                //- var d1 = duedateData.slice(0,3)
-                //- var d2 = duedateData.slice(3,3)
-                //- var d3 = duedateData.slice(6,3)
                 .row
                     .col.s4
                         .outer
@@ -357,7 +360,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -367,7 +370,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -377,7 +380,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                 .row
                     .col.s4
                         .outer
@@ -388,7 +391,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -398,7 +401,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -408,7 +411,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                 .row
                     .col.s4
                         .outer
@@ -419,7 +422,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -429,7 +432,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
                     .col.s4
                         .outer
                             .autoplay
@@ -439,4 +442,4 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            .row.profileInfo
+                            +profileInfo
