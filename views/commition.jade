@@ -6,59 +6,131 @@ extends layout
 block content
     script.
         $(document).ready(function(){
-            var active = #{active};
-            $('.tabs').tabs('select_tab', 'test'+active);
+            $('.modal-trigger').leanModal();
         });
     .container
-        .row.upperDiv
-            .col.m4
-                .profileDivDiv.grey.darken-4.center-align.z-depth-2
-                    h5.white-text(style="margin-top: 0px; padding-top: 10px;") 누코쨔마
-                    img.circle(src='/images/profile_siro.jpg', style='width:100px; height:100px')
-                    p.white-text.text-darken-4 잉여입니다. 그리고 싶을 때 그림을 그립니다.
-                        .row.profileLinks
-                            .col.s4.center-align
-                                a(href='').white-text 팔로잉
-                                    p 20
-                            .col.s4.center-align
-                                a(href='').white-text 팔로워
-                                    p 135
-                            .col.s4.center-align
-                                a(href='/portfolio')
-                                    i.red-text.small.material-icons add
-            .col.m8
-                .profileNoticeDiv.z-depth-1
-                    .profieNoticeTitle.right-align
-                        span 최근 활동
-                    table.hoverable
-                        tbody
-                            tr
-                                td
-                                    i.Small.material-icons new_releases
-                                td
-                                    strong.text-darken-4 커미션이 진행중입니다.
-                                td  지금
-                            tr
-                                td
-                                    i.Small.material-icons power_settings_new
-                                td
-                                    span.text-darken-4 "트위터"를 통해 가입한 회원입니다.
-                                td  10시간 전
-                            tr
-                                td
-                                    i.Small.material-icons perm_identity
-                                td
-                                    span.text-darken-4 프로필을 업데이트 했습니다.
-                                td  10시간 전
-                            tr
-                                td
-                                    i.Small.material-icons perm_media
-                                td
-                                    span.text-darken-4 일러스트를 새로 업데이트했습니다.
-                                td  7시간 전
-                            tr
-                                td
-                                    i.Small.material-icons perm_media
-                                td
-                                    span.text-darken-4 일러스트를 새로 업데이트했습니다.
-                                td  7시간 전
+        .row
+            .col.s12
+                .row.upperDiv
+                    .col.m4
+                        .profileDivDiv.grey.darken-4.center-align.z-depth-2
+                            h5.white-text(style="margin-top: 0px; padding-top: 10px;") 누코쨔마
+                            img.circle(src='/images/profile_siro.jpg', style='width:100px; height:100px')
+                            p.white-text.text-darken-4 잉여입니다. 그리고 싶을 때 그림을 그립니다.
+                                .row.profileLinks
+                                    .col.s4.center-align
+                                        a(href='').white-text 팔로잉
+                                            p 20
+                                    .col.s4.center-align
+                                        a(href='').white-text 팔로워
+                                            p 135
+                                    .col.s4.center-align
+                                        a(href='/portfolio')
+                                            i.red-text.small.material-icons add
+                    .col.m8
+                        .profileNoticeDiv.z-depth-1
+                            .profieNoticeTitle.right-align
+                                span 커미션 설명
+                            .commitionDesc
+                                .container
+                                    p
+                                        | Jade is a terse and simple
+                                        | templating language with a
+                                        | strong focus on performance
+                                        | and powerful features.
+    mixin blockquote
+        .csBlockquotes
+            p.white-text.center-align
+                | 타입 : A 형
+            p.white-text.center-align
+                | 사이즈 : 300 X 300
+            p.white-text.center-align
+                | 가격 : 10000원
+            p.white-text.center-align
+                | 마감일 : 8월 1일
+            p.white-text.center-align
+                | slot : 00님 / 00님 / ??
+            p.white-text.center-align
+                | 설명 : 정리가 된 러프 선에서 간단한 채색이 들어갑니다.반 무테로 A타입에서 좀 더 디테일하게 채색합니다.
+
+    mixin csExampleImg
+        .container
+            .row
+                .col.s4
+                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png', width='100%')
+                .col.s4
+                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png', width='100%')
+                .col.s4
+                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png', width='100%')
+    +blockquote
+    +csExampleImg
+
+    +blockquote
+    +csExampleImg
+
+    +blockquote
+    +csExampleImg
+    .commentButton.center-align
+        a.waves-effect.waves-light.btn.modal-trigger.grey.darken-4(href='#showComment') 댓글 보기
+        a.waves-effect.waves-light.btn.modal-trigger.grey.darken-4(href='#newComment') 댓글 작성
+        #showComment.modal.bottom-sheet
+            .modal-content
+                ul.collapsible(data-collapsible='accordion')
+                    li
+                        .collapsible-header
+                            .row.commentProfile
+                                .col.s1
+                                    div.profileImg
+                                        img.left(src="images/meme.jpg" alt="" class="circle" height='42px')
+                                    div.profileName.grey-text
+                                        span 냥냥이
+                                .col.s9
+                                    span 질문이 있어요.
+                                .col.s2
+                                    i.material-icons.grey-text.right done
+                        //.collapsible-body
+                        //    p 답변입니다.
+                    li
+                        .collapsible-header
+                            .row.commentProfile
+                                .col.s1
+                                    div.profileImg
+                                        img.left(src="images/meme.jpg" alt="" class="circle" height='42px')
+                                    div.profileName.grey-text
+                                        span 냥냥이
+                                .col.s9
+                                    span 질문이 있어요.
+                                .col.s2
+                                    i.material-icons.green-text.right done
+                        .collapsible-body.grey.lighten-3
+                            .row.commentProfile
+                                .col.s1
+                                    div.profileImg
+                                        img.left(src="images/profile_siro.jpg" alt="" class="circle" height='42px')
+                                    div.profileName.grey-text
+                                        span 냥냥이
+                                .col.s9
+                                    span.red-text.text-darken-3 답변입니다.
+                                .col.s2
+                    li
+                        .collapsible-header
+                            .row.commentProfile
+                                .col.s1
+                                    div.profileImg
+                                        img.left(src="images/meme.jpg" alt="" class="circle" height='42px')
+                                    div.profileName.grey-text
+                                        span 냥냥이
+                                .col.s9
+                                    span 질문이 있어요.
+                                .col.s2
+                                    i.material-icons.green-text.right done
+                        .collapsible-body.grey.lighten-3
+                            .row.commentProfile
+                                .col.s1
+                                    div.profileImg
+                                        img.left(src="images/profile_siro.jpg" alt="" class="circle" height='42px')
+                                    div.profileName.grey-text
+                                        span 냥냥이
+                                .col.s9
+                                    span.red-text.text-darken-3 답변입니다.
+                                .col.s2

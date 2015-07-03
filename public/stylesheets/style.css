@@ -113,7 +113,7 @@ body{
 }
 
 .profileNoticeDiv{
-    max-height: 290px;
+    min-height: 290px;
     overflow: auto;
 }
 
@@ -140,14 +140,11 @@ body{
 
 .portfolio-more{
     margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .tabs {
     color : black; !important;
-}
-
-.portfolio-more{
-    margin-bottom: 30px;
 }
 
 /* layout dropdown settings */
@@ -238,4 +235,49 @@ body{
 /* coin page settings */
 .myCoinInfo h5{
     text-decoration: underline;
+}
+
+/* commition page settings */
+.csBlockquotes{
+    background-color: black;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.commentButton{
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+.commentButton a{
+    margin: 0 50px;
+}
+
+.commentProfile{
+    display: inline;
+}
+
+.commentProfile .profileImg{
+    float: left;
+    /*margin-top: 5px;*/
+    padding-left: 25%;
+}
+
+.commentProfile .profileName{
+    height: 20px;
+    float: left;
+    padding-left: 30%;
+    margin-bottom: 5px;
+    line-height: 2rem; !important;
+}
+
+.commentButton .collapsible-header{
+    height: 100px; !important;
+    padding-top: 25px;
+}
+
+.collapsible-body{
+    height: 100px; !important;
+    padding : 0 50px;
+    padding-top: 25px;
 }
