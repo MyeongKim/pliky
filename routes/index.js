@@ -22,6 +22,10 @@ mongoose.connect('mongodb://localhost:27017/test', function(err) {
 	}
 });
 
+router.get('/testt', function(req,res){
+    res.render('account');
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     CommitModel.find(function(err, data){

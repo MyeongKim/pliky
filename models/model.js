@@ -59,8 +59,6 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
     });
 };
 
-CommitSchema.plugin(mongoosePaginate);
-
 var Commit = mongoose.model('Commit', CommitSchema);
 var User = mongoose.model('User', UserSchema);
 

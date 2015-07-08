@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer  = require('multer');
 
-var session = require('express-session')
+var session = require('express-session');
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
@@ -24,9 +24,10 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 //app.use(favicon());
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret: 'session secret key' ,  resave: true, saveUninitialized: true }));
 app.use(flash());
@@ -40,6 +41,9 @@ app.use(multer({dest: './uploads/'}));
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth.js'));
+
+
+
 //app.use('/users', users);
 
 // catch 404 and forward to error handler
