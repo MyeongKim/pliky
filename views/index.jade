@@ -151,14 +151,14 @@ block content
                 .row
                     .col.s4
                         .outer
-                            .autoplay
+                            .autoplay#gacha
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/" , width='650')
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            mixin profileInfo
+                            mixin profileInfo(id)
                                 .profileInfo.black-text.grey.lighten-3
                                     img(src="images/profile_siro.jpg" alt="" class="circle" height='30px')
                                     .infoText.grey-text.text-darken-1
@@ -166,10 +166,11 @@ block content
                                     a.right.blue-text.text-darken-1(href='/cs') more
                                     .infoText.right.grey-text.text-darken-1
                                         i.fa.fa-eye
-                                        span 120
+                                        div(id=id)(style='display:inline;')
+                                            span 120
                                         i.fa.fa-heartbeat
                                         span 44
-                            +profileInfo
+                            +profileInfo('commitInfo1')
 
                     .col.s4
                         .outer
@@ -180,7 +181,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo2')
                     .col.s4
                         .outer
                             .autoplay
@@ -190,7 +191,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo3')
                 .row
                     .col.s4
                         .outer
@@ -201,7 +202,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo4')
                     .col.s4
                         .outer
                             .autoplay
@@ -211,7 +212,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo5')
                     .col.s4
                         .outer
                             .autoplay
@@ -221,7 +222,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo6')
                 .row
                     .col.s4
                         .outer
@@ -232,7 +233,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo7')
                     .col.s4
                         .outer
                             .autoplay
@@ -242,7 +243,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo8')
                     .col.s4
                         .outer
                             .autoplay
@@ -252,7 +253,7 @@ block content
                                 div
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
-                            +profileInfo
+                            +profileInfo('commitInfo9')
             .tabItem#newAlign
                 +preload
                 .row
@@ -443,3 +444,4 @@ block content
                                     a(href="file/", data-lightbox="image-1")
                                         img(src="file/", width ='650')
                             +profileInfo
+    script(src="js/bundle.js")

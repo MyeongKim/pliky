@@ -39,7 +39,13 @@ router.get('/', function(req, res, next) {
         if( data.length > 9){
             data.slice(-9,-1);
         } else{
-            res.render('index', {data : data, user: req.user});
+            res.format({
+                'html' : function(){
+                    res.render('index', {data : data, user: req.user});
+                },
+                'application/json' : function(){
+                    res.send(data);
+                }});
         }
     });
 });

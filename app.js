@@ -41,7 +41,7 @@ app.use(multer({dest: './uploads/'}));
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth.js'));
-
+app.use('/ajax', require('./routes/ajax.js'));
 
 
 //app.use('/users', users);
