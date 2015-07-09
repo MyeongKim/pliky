@@ -2,6 +2,7 @@
  * Created by nuko on 2015. 6. 15..
  */
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 var mongoosePaginate = require('mongoose-paginate');
 
@@ -18,6 +19,8 @@ var CommitSchema = new mongoose.Schema({
     heart : {type : Number, default : 0},
     viewNum : {type : Number, default : 0},
     updated_at: { type: Date, default: Date.now },
+    _creator : { type: String, ref: 'Person' },
+    fans     : [{ type: String, ref: 'Person' }]
 });
 
 var UserSchema = new mongoose.Schema({
@@ -34,7 +37,8 @@ var UserSchema = new mongoose.Schema({
     //passwordSalt : String,
     following : [String],
     follower : [String],
-    profileImg : [String]
+    profileImg : [String],
+    commits : [{ type: Schema.Types.ObjectId, ref: 'Commit' }]
 });
 
 UserSchema.pre('save', function(next) {

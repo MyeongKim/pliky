@@ -346,6 +346,7 @@ router.all('/uploads', function(req, res, next) {
                 console.log("connection close");
                 req.body.imageId = imageId;
                 req.body.fileTime = fileTime;
+                req.body._creator = "55917d8bf71903e80530d648";
                 CommitModel.create(req.body, function (err, post) {
                     if (err) return next(err);
                     callback(null, conn);
