@@ -34,6 +34,7 @@ var UserSchema = new mongoose.Schema({
     //passwordSalt : String,
     following : [String],
     follower : [String],
+    profileImg : [String]
 });
 
 UserSchema.pre('save', function(next) {

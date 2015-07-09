@@ -150,110 +150,47 @@ block content
                 +preload
                 .row
                     .col.s4
-                        .outer
-                            .autoplay#gacha
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            mixin profileInfo(id)
-                                .profileInfo.black-text.grey.lighten-3
-                                    img(src="images/profile_siro.jpg" alt="" class="circle" height='30px')
-                                    .infoText.grey-text.text-darken-1
-                                        a.blue-text.text-darken-1(href="#") 유유
-                                    a.right.blue-text.text-darken-1(href='/cs') more
-                                    .infoText.right.grey-text.text-darken-1
-                                        i.fa.fa-eye
-                                        div(id=id)(style='display:inline;')
-                                            span 120
-                                        i.fa.fa-heartbeat
-                                        span 44
-                            +profileInfo('commitInfo1')
-
+                        mixin profileInfo
+                            .profileInfo.black-text.grey.lighten-3
+                                img(src="images/profile_siro.jpg" alt="" class="circle" height='30px')
+                                .infoText.grey-text.text-darken-1
+                                    a.blue-text.text-darken-1(href="#") 유유
+                                a.right.blue-text.text-darken-1(href='/cs') more
+                                .infoText.right.grey-text.text-darken-1
+                                    i.fa.fa-eye
+                                    div(style='display:inline;')
+                                        span 120
+                                    i.fa.fa-heartbeat
+                                    span 44
+                        mixin mainBox(id)
+                            .outer(id=id)
+                                .autoplay
+                                    div
+                                        a(href="file/", data-lightbox="image-1")
+                                            img(src="file/" , width='650')
+                                    div
+                                        a(href="file/", data-lightbox="image-1")
+                                            img(src="file/", width ='650')
+                                +profileInfo
+                        +mainBox('commitInfo1')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo2')
+                        +mainBox('commitInfo2')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo3')
+                        +mainBox('commitInfo3')
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo4')
+                        +mainBox('commitInfo4')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo5')
+                        +mainBox('commitInfo5')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo6')
+                        +mainBox('commitInfo6')
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo7')
+                        +mainBox('commitInfo7')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo8')
+                        +mainBox('commitInfo8')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo('commitInfo9')
+                        +mainBox('commitInfo9')
             .tabItem#newAlign
                 +preload
                 .row
