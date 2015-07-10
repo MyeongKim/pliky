@@ -19,8 +19,8 @@ var CommitSchema = new mongoose.Schema({
     heart : {type : Number, default : 0},
     viewNum : {type : Number, default : 0},
     updated_at: { type: Date, default: Date.now },
-    _creator : { type: String, ref: 'Person' },
-    fans     : [{ type: String, ref: 'Person' }]
+    _creator : { type: String, ref: 'User' },
+    fans     : [{ type: String, ref: 'User' }]
 });
 
 var UserSchema = new mongoose.Schema({

@@ -22,31 +22,27 @@ mongoose.connect('mongodb://localhost:27017/test', function(err) {
 	}
 });
 
-router.get('/testt', function(req,res){
-    res.render('account');
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    CommitModel.find(function(err, data){
+
+    CommitModel.find().populate('_creator').exec(function (err, data) {
         if (err) return next(err);
 
         console.log("json data");
         console.log("length "+ data.length);
         console.log(data);
-
         // max length is 9.
         if( data.length > 9){
-            data.slice(-9,-1);
-        } else{
-            res.format({
-                'html' : function(){
-                    res.render('index', {data : data, user: req.user});
-                },
-                'application/json' : function(){
-                    res.send(data);
-                }});
+            data = data.reverse().slice(0,9);
         }
+        res.format({
+            'html' : function(){
+                res.render('index', {data : data, user: req.user});
+            },
+            'application/json' : function(){
+                res.send(data);
+            }});
     });
 });
 
@@ -291,7 +287,11 @@ router.post('/reset/:token', function(req, res) {
 });
 
 router.get('/enrollment', function (req, res, next) {
-    res.render('enrollment', {user : req.user});
+    if(!req.user){
+        res.redirect('/login');
+    }else{
+        res.render('enrollment', {user : req.user});
+    }
 });
 
 router.post('/enrollment', function(req, res){
@@ -346,7 +346,7 @@ router.all('/uploads', function(req, res, next) {
                 console.log("connection close");
                 req.body.imageId = imageId;
                 req.body.fileTime = fileTime;
-                req.body._creator = "55917d8bf71903e80530d648";
+                req.body._creator = req.user._id;
                 CommitModel.create(req.body, function (err, post) {
                     if (err) return next(err);
                     callback(null, conn);
@@ -389,16 +389,16 @@ router.get('/file/:id',function(req,res,next){
     });
 });
 
-router.get('/mypage', function(req,res,next){
+router.get('/mypage/:nickname', function(req,res,next){
     res.format({
         'html' : function(){
-            res.render('mypage', {user : req.user, active : 1});
+            res.render('mypage', {user : req.user, active : 1, nickname : req.params.nickname});
         },
         'json' : function(){
             var data = {}; // img addresses..
             res.send(data);
         }
-});
+    });
 });
 
 router.get('/account', function(req,res,next){
@@ -417,8 +417,8 @@ router.get('/coin', function(req,res,next){
     res.render('coin');
 });
 
-router.get('/cs',function(req,res,next){
-    res.render('commition');
+router.get('/cs/:id',function(req,res,next){
+    res.render('commition', {user : req.user, csid : req.params.id});
 });
 
 module.exports = router;

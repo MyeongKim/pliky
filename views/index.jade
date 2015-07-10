@@ -3,116 +3,6 @@ extends layout
 block content
     script.
         var data = !{JSON.stringify(data)};
-        //alert(data.length);
-
-        // duedate string sorting function
-        function mostEarlyDuedate(string){
-            // only in case that year is 2015.
-            var stringArray = string.split("2015,");
-            // month sort
-            var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            stringArray.sort(function(a,b){
-                var aMonth = a.split(' ')[1];
-                var bMonth = b.split(' ')[1];
-                if (aMonth == bMonth){
-                    return b.split(' ')[0] - a.split(' ')[0];
-                }else {
-                    return mL.indexOf(bMonth) - mL.indexOf(aMonth);
-                }
-            });
-
-            return stringArray[0];
-        }
-
-        // newest time sorting
-        function timeSort(data){
-            data.sort(function(a,b){
-                return b.fileTime - a.fileTime;
-            });
-            return data;
-        }
-
-        // heart sorting
-        function heartSort(data){
-            data.sort(function(a,b){
-                return b.heart - a.heart;
-            });
-            return data;
-        }
-
-        // duedate sorting
-        function duedateSort(data){
-            data.sort(function(a,b){
-                var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-                var aMonth = mostEarlyDuedate(a.duedate).split(' ')[1];
-                var bMonth = mostEarlyDuedate(b.duedate).split(' ')[1];
-                if (aMonth == bMonth){
-                    return mostEarlyDuedate(b.duedate).split(' ')[0] - mostEarlyDuedate(a.duedate).split(' ')[0];
-                }else {
-                    return mL.indexOf(bMonth) - mL.indexOf(aMonth);
-                }
-            });
-            return data;
-        }
-
-        var heartData = heartSort(data);
-        var timeData = timeSort(data);
-        var duedateData = duedateSort(data);
-
-        var word = duedateData[0]._id;
-
-    script.
-        $(document).ready(function (){
-
-            function alignAutoplay(divId, data){
-                $(divId).find('.autoplay').map(function(e){
-                    $(this).find('div a').attr("href", function(arr){
-                        return "file/" + data[e].imageId[arr];
-                    });
-                    $(this).find('div img').attr("src", function(arr){
-                        return "file/" + data[e].imageId[arr];
-                    });
-                });
-            }
-
-            alignAutoplay("#heartAlign", heartData);
-            alignAutoplay("#newAlign", timeData);
-            alignAutoplay("#timeAlign", duedateData);
-
-            $('.autoplay').slick({
-                dots: false,
-                infinite : true,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 2000,
-                arrows: false,
-            });
-
-            // carousel hover effect
-            $('.autoplay').mouseenter(function(){
-               //$('.autoplay').slick('slickPause');
-               $(this).slick('slickPause');
-            }).mouseleave(function(){
-               $('.autoplay').slick('slickPlay');
-            });
-
-            // preloadDiv init
-            function preloadDivShow(){
-                $('.preloadDiv').show();
-                setTimeout(function(){
-                    $('.preloadDiv').hide();
-                },2500);
-                $('.tabItem').css('z-index', 0);
-            }
-            preloadDivShow();
-
-            // tab change preloader
-            $('.tab a').click(function(){
-                preloadDivShow();
-            });
-        });
     .container
         .row.promo
             .col.s6
@@ -134,7 +24,7 @@ block content
                     li.tab.col.s3
                         a(href='#newAlign') 신규등록순
                     li.tab.col.s3
-                        a(href='#timeAlign') 마감임박순
+                        a(href='#dueAlign') 마감임박순
             .tabItem#heartAlign
                 mixin preload
                     .preloadDiv
@@ -150,235 +40,90 @@ block content
                 +preload
                 .row
                     .col.s4
-                        mixin profileInfo
-                            .profileInfo.black-text.grey.lighten-3
-                                img(src="images/profile_siro.jpg" alt="" class="circle" height='30px')
-                                .infoText.grey-text.text-darken-1
-                                    a.blue-text.text-darken-1(href="#") 유유
-                                a.right.blue-text.text-darken-1(href='/cs') more
-                                .infoText.right.grey-text.text-darken-1
-                                    i.fa.fa-eye
-                                    div(style='display:inline;')
-                                        span 120
-                                    i.fa.fa-heartbeat
-                                    span 44
                         mixin mainBox(id)
                             .outer(id=id)
-                                .autoplay
-                                    div
-                                        a(href="file/", data-lightbox="image-1")
-                                            img(src="file/" , width='650')
-                                    div
-                                        a(href="file/", data-lightbox="image-1")
-                                            img(src="file/", width ='650')
-                                +profileInfo
-                        +mainBox('commitInfo1')
+                        +mainBox('heartCommit1')
                     .col.s4
-                        +mainBox('commitInfo2')
+                        +mainBox('heartCommit2')
                     .col.s4
-                        +mainBox('commitInfo3')
+                        +mainBox('heartCommit3')
                 .row
                     .col.s4
-                        +mainBox('commitInfo4')
+                        +mainBox('heartCommit4')
                     .col.s4
-                        +mainBox('commitInfo5')
+                        +mainBox('heartCommit5')
                     .col.s4
-                        +mainBox('commitInfo6')
+                        +mainBox('heartCommit6')
                 .row
                     .col.s4
-                        +mainBox('commitInfo7')
+                        +mainBox('heartCommit7')
                     .col.s4
-                        +mainBox('commitInfo8')
+                        +mainBox('heartCommit8')
                     .col.s4
-                        +mainBox('commitInfo9')
+                        +mainBox('heartCommit9')
             .tabItem#newAlign
                 +preload
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit1')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit2')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit3')
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit4')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit5')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit6')
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit7')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('newCommit8')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
-            .tabItem#timeAlign
+                        +mainBox('newCommit9')
+            .tabItem#dueAlign
                 +preload
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit1')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit2')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit3')
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit4')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit5')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit6')
                 .row
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit7')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit8')
                     .col.s4
-                        .outer
-                            .autoplay
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/" , width='650')
-                                div
-                                    a(href="file/", data-lightbox="image-1")
-                                        img(src="file/", width ='650')
-                            +profileInfo
+                        +mainBox('dueCommit9')
     script(src="js/bundle.js")
+    script.
+        $(document).ready(function (){
+
+
+            // preloadDiv init
+            function preloadDivShow(){
+                $('.preloadDiv').show();
+                setTimeout(function(){
+                    $('.preloadDiv').hide();
+                },2500);
+                $('.tabItem').css('z-index', 0);
+            }
+            preloadDivShow();
+
+            // tab change preloader
+            $('.tab a').click(function(){
+                preloadDivShow();
+            });
+        });
