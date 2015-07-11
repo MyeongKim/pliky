@@ -1,6 +1,7 @@
 import React from "react";
 import Greeting from "./greeting";
 import Gacha from "./gacha";
+
 $.ajax({
     url: 'http://localhost:3000',
     dataType: 'json',
@@ -8,26 +9,25 @@ $.ajax({
     success: function(data) {
 
         // duedate string sorting function
-        function mostEarlyDuedate(string){
+        function mostEarlyDuedate(array){
             // only in case that year is 2015.
-            var stringArray = string.split("2015,");
             // month sort
             var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            stringArray.sort(function(a,b){
-                var aMonth = a.split(' ')[1];
-                var bMonth = b.split(' ')[1];
+            var result = array.sort(function(a,b){
+                var aMonth = a.match(/([A-Z]\w+)/g)[0];
+                var bMonth = b.match(/([A-Z]\w+)/g)[0];
                 if (aMonth == bMonth){
-                    return b.split(' ')[0] - a.split(' ')[0];
+                    return a.match(/(\d+)\s/g) - b.match(/(\d+)\s/g);
                 }else {
-                    return mL.indexOf(bMonth) - mL.indexOf(aMonth);
+                    return mL.indexOf(aMonth) - mL.indexOf(bMonth);
                 }
             });
-            return stringArray[0];
+            return result[0];
         }
 
         // newest time sorting
         function timeSort(data){
-            data.sort(function(a,b){
+            var data = data.sort(function(a,b){
                 return b.fileTime - a.fileTime;
             });
             return data;
@@ -35,7 +35,7 @@ $.ajax({
 
         // heart sorting
         function heartSort(data){
-            data.sort(function(a,b){
+            var data = data.sort(function(a,b){
                 return b.heart - a.heart;
             });
             return data;
@@ -43,24 +43,23 @@ $.ajax({
 
         // duedate sorting
         function duedateSort(data){
-            data.sort(function(a,b){
+            var result = data.sort(function(a,b){
                 var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-                var aMonth = mostEarlyDuedate(a.duedate).split(' ')[1];
-                var bMonth = mostEarlyDuedate(b.duedate).split(' ')[1];
+                var aMonth = mostEarlyDuedate(a.duedate).match(/([A-Z]\w+)/g)[0];
+                var bMonth = mostEarlyDuedate(b.duedate).match(/([A-Z]\w+)/g)[0];
                 if (aMonth == bMonth){
-                    return mostEarlyDuedate(b.duedate).split(' ')[0] - mostEarlyDuedate(a.duedate).split(' ')[0];
+                    return mostEarlyDuedate(a.duedate).match(/(\d+)\s/g) - mostEarlyDuedate(b.duedate).match(/(\d+)\s/g)
                 }else {
-                    return mL.indexOf(bMonth) - mL.indexOf(aMonth);
+                    return mL.indexOf(aMonth) - mL.indexOf(bMonth);
                 }
             });
-            return data;
+            return result;
         }
 
         var heartData = heartSort(data);
         var timeData = timeSort(data);
         var duedateData = duedateSort(data);
-
+        console.log(duedateData);
         for (var i = 1; i< 10 ; i++){
             var heartCommit = 'heartCommit'+(i);
             var newCommit = 'newCommit'+(i);

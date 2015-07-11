@@ -7,20 +7,22 @@ var bcrypt = require('bcrypt-nodejs');
 var mongoosePaginate = require('mongoose-paginate');
 
 var CommitSchema = new mongoose.Schema({
-    title: { type: String, default: "#" },
-    description: { type: String, default: "#" },
-    price: { type: String, default: "#" },
-    reqNumber: { type: String, default: "#" },
-    width: { type: String, default: "#" },
-    height: { type: String, default: "#" },
-    duedate: { type: String, default: "#" },
+    title: [{ type: String, default: "#" }],
+    description: [{ type: String, default: "#" }],
+    price: [{ type: String, default: "#" }],
+    reqNumber: [{ type: String, default: "#" }],
+    width: [{ type: String, default: "#" }],
+    height: [{ type: String, default: "#" }],
+    duedate: [{ type: String, default: "#" }],
     imageId : [String],
-    fileTime : {type: String, default : "#"},
+    fileTime : {type: Number, default : 0},
     heart : {type : Number, default : 0},
     viewNum : {type : Number, default : 0},
     updated_at: { type: Date, default: Date.now },
     _creator : { type: String, ref: 'User' },
-    fans     : [{ type: String, ref: 'User' }]
+    fans     : [{ type: String, ref: 'User' }],
+    summary : { type : String, default : "커미션 요약"},
+    Slot : [{type : Array, default : ["00님","11님", "22님"]}]
 });
 
 var UserSchema = new mongoose.Schema({
@@ -38,7 +40,8 @@ var UserSchema = new mongoose.Schema({
     following : [String],
     follower : [String],
     profileImg : [String],
-    commits : [{ type: Schema.Types.ObjectId, ref: 'Commit' }]
+    commits : [{ type: Schema.Types.ObjectId, ref: 'Commit' }],
+    selfDesc : [{ type : String, default : " 자기소개 입니다. "}]
 });
 
 UserSchema.pre('save', function(next) {

@@ -20,16 +20,16 @@ block content
                     th(data-field='fileTime') fileTime(Seconds)
             tbody
                 for result in data
-                    - var length = result.title.split(",").length
+                    - var length = result.title.length
                     // file2 is not initiated
                     - var title_array, description_array, price_array, reqNumber_array, width_array, height_array, duedate_array, file1_array, file2_array, updated_at_array
-                    - title_array = result.title.split(",")
-                    - description_array = result.description.split(",")
-                    - price_array = result.price.split(",")
-                    - reqNumber_array = result.reqNumber.split(",")
-                    - width_array = result.width.split(",")
-                    - height_array = result.height.split(",")
-                    - duedate_array = result.duedate.split("2015,")
+                    - title_array = result.title
+                    - description_array = result.description
+                    - price_array = result.price
+                    - reqNumber_array = result.reqNumber
+                    - width_array = result.width
+                    - height_array = result.height
+                    - duedate_array = result.duedate
                     - image_array = result.imageId
                     - fileTime = result.fileTime
                     - var index = 0
