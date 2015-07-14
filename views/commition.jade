@@ -7,69 +7,23 @@ block content
     script.
         $(document).ready(function(){
             $('.modal-trigger').leanModal();
-        });
+            setInterval(function(){
+                $("#heartIcon").toggleClass("red-text");
+                },1000)
+            });
     .container
         .row
             .col.s12
                 .row.upperDiv
                     .col.m4
                         .profileDivDiv.grey.darken-4.center-align.z-depth-2
-                            h5.white-text(style="margin-top: 0px; padding-top: 10px;") 누코쨔마
-                            img.circle(src='/images/profile_siro.jpg', style='width:100px; height:100px')
-                            p.white-text.text-darken-4 잉여입니다. 그리고 싶을 때 그림을 그립니다.
-                                .row.profileLinks
-                                    .col.s4.center-align
-                                        a(href='').white-text 팔로잉
-                                            p 20
-                                    .col.s4.center-align
-                                        a(href='').white-text 팔로워
-                                            p 135
-                                    .col.s4.center-align
-                                        a(href='/portfolio')
-                                            i.red-text.small.material-icons add
                     .col.m8
                         .profileNoticeDiv.z-depth-1
-                            .profieNoticeTitle.right-align
-                                span 커미션 설명
-                            .commitionDesc
-                                .container
-                                    p
-                                        | Jade is a terse and simple
-                                        | templating language with a
-                                        | strong focus on performance
-                                        | and powerful features.
-    mixin blockquote
-        .csBlockquotes
-            p.white-text.center-align
-                | 타입 : A 형
-            p.white-text.center-align
-                | 사이즈 : 300 X 300
-            p.white-text.center-align
-                | 가격 : 10000원
-            p.white-text.center-align
-                | 마감일 : 8월 1일
-            p.white-text.center-align
-                | slot : 00님 / 00님 / ??
-            p.white-text.center-align
-                | 설명 : 정리가 된 러프 선에서 간단한 채색이 들어갑니다.반 무테로 A타입에서 좀 더 디테일하게 채색합니다.
-
-    mixin csExampleImg
-        .container
-            .row
-                .col.s4
-                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png', width='100%')
-                .col.s4
-                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png', width='100%')
-                .col.s4
-                    img.materialboxed(src='http://labs.qnimate.com/portfolio-materialize/images/project.png', width='100%')
-    +blockquote
-    +csExampleImg
-
-    +blockquote
-    +csExampleImg
-
-    +blockquote
-    +csExampleImg
+    .Items
+    .Items
+    .Items
+    .Items
+    .Items
     .commentButton.center-align
         a.waves-effect.waves-light.btn.modal-trigger.grey.darken-4(href='#showComment') 댓글 보기
         a.waves-effect.waves-light.btn.modal-trigger.grey.darken-4(href='#newComment') 댓글 작성
@@ -84,8 +38,10 @@ block content
                                         img.left(src="/images/meme.jpg" alt="" class="circle" height='42px')
                                     div.profileName.grey-text
                                         span 냥냥이
-                                .col.s9
+                                .col.s8.commemtBody
                                     span 질문이 있어요.
+                                .col.s1.commentTime
+                                    span 15/07/04 13:23:14
                                 .col.s2
                                     i.material-icons.grey-text.right done
                         //.collapsible-body
@@ -98,8 +54,10 @@ block content
                                         img.left(src="/images/meme.jpg" alt="" class="circle" height='42px')
                                     div.profileName.grey-text
                                         span 냥냥이
-                                .col.s9
+                                .col.s8.commemtBody
                                     span 질문이 있어요.
+                                .col.s1.commentTime
+                                    span 15/07/04 13:23:14
                                 .col.s2
                                     i.material-icons.green-text.right done
                         .collapsible-body.grey.lighten-3
@@ -120,8 +78,10 @@ block content
                                         img.left(src="/images/meme.jpg" alt="" class="circle" height='42px')
                                     div.profileName.grey-text
                                         span 냥냥이
-                                .col.s9
+                                .col.s8.commemtBody
                                     span 질문이 있어요.
+                                .col.s1.commentTime
+                                    span 15/07/04 13:23:14
                                 .col.s2
                                     i.material-icons.green-text.right done
                         .collapsible-body.grey.lighten-3
@@ -147,3 +107,4 @@ block content
             .modal-footer
                 a.modal-action.waves-effect.black.waves-light.btn(href='#!') 작성
                 a.modal-action.modal-close.waves-effect.black.waves-light.btn(href='#!') 취소
+    script(src="/js/cs.js")

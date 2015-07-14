@@ -136,7 +136,7 @@ body{
 }
 
 .profileNoticeDiv{
-    min-height: 290px;
+    height: 290px;
     overflow: auto;
 }
 
@@ -319,4 +319,22 @@ body{
 
 #newComment a{
     margin : 10px;
+}
+
+.collapsible-header{
+    line-height : 2rem; !important;
+
+}
+
+.profileNoticeDiv{
+    position: relative;
+}
+.commitionInfo{
+    position: absolute;
+    right : 10px;
+    bottom: 5px;
+}
+
+.commitionInfo span {
+    margin-left: 15px;
 }

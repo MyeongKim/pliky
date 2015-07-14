@@ -22,7 +22,14 @@ var CommitSchema = new mongoose.Schema({
     _creator : { type: String, ref: 'User' },
     fans     : [{ type: String, ref: 'User' }],
     summary : { type : String, default : "커미션 요약"},
-    Slot : [{type : Array, default : ["00님","11님", "22님"]}]
+    Slot : [{type : Array, default : ["00님","11님", "22님"]}],
+    comments : [{
+        comment : String,
+        postedBy : { type: String, ref: 'User' },
+        createdDate : Date,
+        reply : String,
+        finished : Boolean
+    }]
 });
 
 var UserSchema = new mongoose.Schema({

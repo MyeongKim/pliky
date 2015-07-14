@@ -1,8 +1,8 @@
 module.exports = {
-    entry: "./client.js",
+    entry: "./commition.js",
     output: {
         path: __dirname+'/public/js/',
-        filename: "bundle.js"
+        filename: "cs.js"
     },
     module: {
         loaders: [

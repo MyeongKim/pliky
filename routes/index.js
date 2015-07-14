@@ -418,7 +418,15 @@ router.get('/coin', function(req,res,next){
 });
 
 router.get('/cs/:id',function(req,res,next){
-    res.render('commition', {user : req.user, csid : req.params.id});
+    CommitModel.findOne({ _id : req.params.id}).populate('_creator').exec(function (err, data) {
+        res.format({
+            'html' : function(){
+                res.render('commition', {user : req.user, csid : req.params.id});
+            },
+            'application/json' : function(){
+                res.send(data);
+            }});
+    });
 });
 
 module.exports = router;
