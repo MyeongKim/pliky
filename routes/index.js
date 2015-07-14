@@ -421,11 +421,13 @@ router.get('/cs/:id',function(req,res,next){
     CommitModel.findOne({ _id : req.params.id}).populate('_creator').exec(function (err, data) {
         res.format({
             'html' : function(){
-                res.render('commition', {user : req.user, csid : req.params.id});
+                var userId = (req.user == undefined) ? "null" : req.user._id;
+                res.render('commition', {user : req.user, userId : userId, csid : req.params.id});
             },
             'application/json' : function(){
                 res.send(data);
-            }});
+            }
+        });
     });
 });
 

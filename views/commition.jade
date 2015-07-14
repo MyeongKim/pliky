@@ -4,13 +4,15 @@
 extends layout
 
 block content
+    script(type="text/javascript").
+        var userId =!{JSON.stringify(userId)};
     script.
         $(document).ready(function(){
             $('.modal-trigger').leanModal();
             setInterval(function(){
                 $("#heartIcon").toggleClass("red-text");
-                },1000)
-            });
+                },1000);
+        });
     .container
         .row
             .col.s12
@@ -107,4 +109,5 @@ block content
             .modal-footer
                 a.modal-action.waves-effect.black.waves-light.btn(href='#!') 작성
                 a.modal-action.modal-close.waves-effect.black.waves-light.btn(href='#!') 취소
+    script(src="/socket.io/socket.io.js")
     script(src="/js/cs.js")

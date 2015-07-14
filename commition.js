@@ -12,25 +12,32 @@ $.ajax({
                 return {data : data};
             },
 
-            loadData : function(index){
-                //$.ajax({
-                //    url: $(location).attr('href'),
-                //    dataType: 'json',
-                //    context: this,
-                //    success: function(data) {
-                //        this.setState({data: data});
-                //    }.bind(this),
-                //    error: function(xhr, status, err) {
-                //        console.error(this.props.url, status, err.toString());
-                //    }.bind(this)
-                //});
+            loadData : function(){
+                $.ajax({
+                    url: $(location).attr('href'),
+                    dataType: 'json',
+                    context: this,
+                    success: function(data) {
+                        this.setState({data: data});
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                });
             },
             heartPlus: function(e) {
                 e.preventDefault();
-                alert("sssss");
-                var newData = data;
-                newData.heart++;
-                this.setState({data: newData});
+                var socket = io.connect();
+                if (userId == 'null'){
+                    alert("로그인 해주세요.");
+                }else if (this.state.data.fans.indexOf(userId) >= 0) {
+                    alert("이미 하트를 쐈습니다.");
+                }else{
+                    var newData = data;
+                    newData.fans.push(userId);
+                    this.setState({data: newData});
+                    socket.emit('heartPlus',{ csId : this.state.data._id, userId: userId });
+                }
             },
             render : function(){
                 return (
