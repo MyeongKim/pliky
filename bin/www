@@ -49,6 +49,12 @@ io.on('connection', function (socket) {
     socket.on('cancelCsAlarmPlus', function(data) {
         socketFunction.cancelCsAlarmPlus(data.csId, data.userId);
     });
+    socket.on('followPlus', function(data) {
+        socketFunction.followPlus(data.creatorId, data.userId);
+    });
+    socket.on('followMinus', function(data) {
+        socketFunction.followMinus(data.creatorId, data.userId);
+    });
 
 });
 /**

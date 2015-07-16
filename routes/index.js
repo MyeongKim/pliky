@@ -50,7 +50,7 @@ router.get('/admin', function(req, res, next) {
     CommitModel.find(function (err, data) {
         if (err) return next(err);
         res.render('admin', {data : data});
-    });
+        });
 });
 
 router.get('/signup', function(req, res, next){
@@ -58,6 +58,7 @@ router.get('/signup', function(req, res, next){
 });
 
 router.post('/signup', function(req, res, next){
+
     UserModel.findOne( {email : req.body.email}, function(err,data){
         if (err) return next(err);
         if(data){
@@ -423,7 +424,7 @@ router.get('/cs/:id',function(req,res,next){
             'html' : function(){
                 var userId = (req.user == undefined) ? "null" : req.user._id;
                 var csAlarm = (req.user == undefined) ? "null" : req.user.csAlarm;
-                res.render('commition', {csAlarm : csAlarm, userId : userId, csid : req.params.id});
+                res.render('commition', {csAlarm : csAlarm, userId : userId, csid : req.params.id, user : req.user});
             },
             'application/json' : function(){
                 res.send(data);

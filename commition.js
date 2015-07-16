@@ -2,6 +2,8 @@ import React from "react";
 import CsInfo from "./csInfo";
 import UserInfo from "./userInfo";
 import Item from "./csItem";
+import CommentBox from './commentBox';
+
 $.ajax({
     url: $(location).attr('href'),
     dataType: 'json',
@@ -18,6 +20,10 @@ $.ajax({
                 }
                 if(csAlarm.indexOf(this.state.data._id) >= 0){
                     $('#alarmIcon').addClass("yellow-text");
+                }
+                if(this.state.data._creator.follower.indexOf(userId) >= 0){
+                    $('#followIcon').removeClass('fa-user-plus');
+                    $('#followIcon').addClass('fa-user-times');
                 }
                 socket.emit('viewPlus',{csId : this.state.data._id});
             },
@@ -64,7 +70,7 @@ $.ajax({
             },
 
             csAlarmPlus : function(e){
-
+                e.preventDefault();
                 if (userId == 'null'){
                     alert("로그인 해주세요.");
                 }else if (csAlarm.indexOf(this.state.data._id) >= 0) {
@@ -79,12 +85,43 @@ $.ajax({
                     csAlarm.push(this.state.data._id);
                 }
             },
+
+            followPlus : function(e) {
+                e.preventDefault();
+                if (userId == 'null') {
+                    alert("로그인 해주세요.");
+                } else {
+                    if ($('#followIcon').is(".fa-user-plus")) {
+                        $('#followIcon').removeClass('fa-user-plus');
+                        $('#followIcon').addClass('fa-user-times');
+
+                        //add creator to user's following
+                        //add user to creator's follower
+                        socket.emit('followPlus',{ creatorId : this.state.data._creator._id, userId: userId });
+                        var newData = data;
+                        newData._creator.follower.push(userId);
+                        this.setState({data: newData});
+                    } else {
+                        $('#followIcon').removeClass('fa-user-times');
+                        $('#followIcon').addClass('fa-user-plus');
+
+                        //remove creator from user's following
+                        //remove user from creator' follower
+                        socket.emit('followMinus',{ creatorId : this.state.data._creator._id, userId: userId });
+                        var newData = data;
+                        var userIdIndex = this.state.data._creator.follower.indexOf(userId);
+                        newData._creator.follower.splice(userIdIndex, 1);
+                        this.setState({data: newData});
+                    }
+                }
+
+            },
             render : function(){
                 return (
                     <div>
                         <div className="col m4">
                             <div className="profileDivDiv grey darken-4 center-align z-depth-2">
-                                <UserInfo data={this.state.data}/>
+                                <UserInfo data={this.state.data} followPlus={this.followPlus}/>
                             </div>
                         </div>
                         <div className="col m8">
@@ -103,6 +140,11 @@ $.ajax({
             index++;
         }
 
-        React.render(<Infos data={data}/>,document.getElementsByClassName('upperDiv')[0] )
+        React.render(<Infos data={data}/>,document.getElementsByClassName('upperDiv')[0] );
+        React.render(<CommentBox data={data}/>,document.getElementById('commentButton') );
+        $('.modal-trigger').leanModal();
+        $('.collapsible').collapsible({
+            accordion : false
+        });
     }
 });

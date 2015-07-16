@@ -40,4 +40,21 @@ module.exports = {
             if (err) return next(err);
         });
     },
+    followPlus : function (creatorId, userId){
+        UserModel.update({_id : creatorId},  { $addToSet: {"follower": userId}}, function(err,data){
+            if (err) return next(err);
+            UserModel.update({_id : userId},  { $addToSet: {"following": creatorId}}, function(err,data){
+                if (err) return next(err);
+            });
+        });
+
+    },
+    followMinus : function (creatorId, userId){
+        UserModel.update({_id : creatorId},  { $pull: {"follower": userId}}, function(err,data){
+            if (err) return next(err);
+            UserModel.update({_id : userId},  { $pull: {"following": creatorId}}, function(err,data){
+                if (err) return next(err);
+            });
+        });
+    },
 };

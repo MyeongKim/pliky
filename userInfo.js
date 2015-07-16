@@ -32,8 +32,8 @@ export default React.createClass({
                             </a>
                         </div>
                         <div className="col s4 center-align">
-                            <a href="#">
-                                <i className="small fa fa-user-plus green-text"></i>
+                            <a href="#" onClick={this.props.followPlus}>
+                                <i id="followIcon" className="small fa fa-user-plus blue-text"></i>
                             </a>
                         </div>
                     </div>

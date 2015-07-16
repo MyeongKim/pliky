@@ -34,7 +34,7 @@ var CommitSchema = new mongoose.Schema({
 
 var UserSchema = new mongoose.Schema({
     email : { type: String, required: false, unique: true },
-    twitterUsername : { type : String, unique : true},
+    twitterUsername : {type : String, unique : false},
     nickname : { type : String, default : "IamUser"},
     password : { type: String, required: false },
     resetPasswordToken: String,

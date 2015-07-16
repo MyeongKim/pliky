@@ -13,7 +13,6 @@ block content
 
     script.
         $(document).ready(function(){
-            $('.modal-trigger').leanModal();
 
         });
     .container
@@ -29,87 +28,5 @@ block content
     .Items
     .Items
     .Items
-    .commentButton.center-align
-        a.waves-effect.waves-light.btn.modal-trigger.grey.darken-4(href='#showComment') 댓글 보기
-        a.waves-effect.waves-light.btn.modal-trigger.grey.darken-4(href='#newComment') 댓글 작성
-        #showComment.modal.bottom-sheet
-            .modal-content
-                ul.collapsible(data-collapsible='accordion')
-                    li
-                        .collapsible-header
-                            .row.commentProfile
-                                .col.s1
-                                    div.profileImg
-                                        img.left(src="/images/meme.jpg" alt="" class="circle" height='42px')
-                                    div.profileName.grey-text
-                                        span 냥냥이
-                                .col.s8.commemtBody
-                                    span 질문이 있어요.
-                                .col.s1.commentTime
-                                    span 15/07/04 13:23:14
-                                .col.s2
-                                    i.material-icons.grey-text.right done
-                        //.collapsible-body
-                        //    p 답변입니다.
-                    li
-                        .collapsible-header
-                            .row.commentProfile
-                                .col.s1
-                                    div.profileImg
-                                        img.left(src="/images/meme.jpg" alt="" class="circle" height='42px')
-                                    div.profileName.grey-text
-                                        span 냥냥이
-                                .col.s8.commemtBody
-                                    span 질문이 있어요.
-                                .col.s1.commentTime
-                                    span 15/07/04 13:23:14
-                                .col.s2
-                                    i.material-icons.green-text.right done
-                        .collapsible-body.grey.lighten-3
-                            .row.commentProfile
-                                .col.s1
-                                    div.profileImg
-                                        img.left(src="/images/profile_siro.jpg" alt="" class="circle" height='42px')
-                                    div.profileName.grey-text
-                                        span 냥냥이
-                                .col.s9
-                                    span.red-text.text-darken-3 답변입니다.
-                                .col.s2
-                    li
-                        .collapsible-header
-                            .row.commentProfile
-                                .col.s1
-                                    div.profileImg
-                                        img.left(src="/images/meme.jpg" alt="" class="circle" height='42px')
-                                    div.profileName.grey-text
-                                        span 냥냥이
-                                .col.s8.commemtBody
-                                    span 질문이 있어요.
-                                .col.s1.commentTime
-                                    span 15/07/04 13:23:14
-                                .col.s2
-                                    i.material-icons.green-text.right done
-                        .collapsible-body.grey.lighten-3
-                            .row.commentProfile
-                                .col.s1
-                                    div.profileImg
-                                        img.left(src="/images/profile_siro.jpg" alt="" class="circle" height='42px')
-                                    div.profileName.grey-text
-                                        span 냥냥이
-                                .col.s9
-                                    span.red-text.text-darken-3 답변입니다.
-                                .col.s2
-        #newComment.modal
-            .modal-content
-                .container
-                    i.large.material-icons.center-align comment
-                    form.row
-                        .input-field.col.s12
-                            textarea#textarea1.materialize-textarea
-                            label(for='textarea1') Textarea
-
-
-            .modal-footer
-                a.modal-action.waves-effect.black.waves-light.btn(href='#!') 작성
-                a.modal-action.modal-close.waves-effect.black.waves-light.btn(href='#!') 취소
+    #commentButton.center-align
     script(src="/js/cs.js")

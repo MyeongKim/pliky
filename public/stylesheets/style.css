@@ -279,12 +279,12 @@ body{
     margin-bottom: 100px;
 }
 
-.commentButton{
+#commentButton{
     margin-top: 100px;
     margin-bottom: 30px;
 }
 
-.commentButton a{
+#commentButton a{
     margin: 0 50px;
 }
 
@@ -306,7 +306,7 @@ body{
     line-height: 2rem; !important;
 }
 
-.commentButton .collapsible-header{
+#commentButton .collapsible-header{
     height: 100px; !important;
     padding-top: 25px;
 }
