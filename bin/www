@@ -37,6 +37,19 @@ io.on('connection', function (socket) {
         var csId = data.csId;
         socketFunction.heartPlus(csId, userId);
     });
+    socket.on('cancelHeartPlus', function(data) {
+        socketFunction.cancelHeartPlus(data.csId, data.userId);
+    });
+    socket.on('viewPlus', function(data) {
+        socketFunction.viewPlus(data.csId);
+    });
+    socket.on('csAlarmPlus', function(data) {
+        socketFunction.csAlarmPlus(data.csId, data.userId);
+    });
+    socket.on('cancelCsAlarmPlus', function(data) {
+        socketFunction.cancelCsAlarmPlus(data.csId, data.userId);
+    });
+
 });
 /**
  * Normalize a port into a number, string, or false.

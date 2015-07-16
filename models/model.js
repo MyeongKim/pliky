@@ -48,7 +48,8 @@ var UserSchema = new mongoose.Schema({
     follower : [String],
     profileImg : [String],
     commits : [{ type: Schema.Types.ObjectId, ref: 'Commit' }],
-    selfDesc : [{ type : String, default : " 자기소개 입니다. "}]
+    selfDesc : [{ type : String, default : " 자기소개 입니다. "}],
+    csAlarm : [{ type: Schema.Types.ObjectId, ref: 'Commit' }]
 });
 
 UserSchema.pre('save', function(next) {

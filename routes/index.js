@@ -422,7 +422,8 @@ router.get('/cs/:id',function(req,res,next){
         res.format({
             'html' : function(){
                 var userId = (req.user == undefined) ? "null" : req.user._id;
-                res.render('commition', {user : req.user, userId : userId, csid : req.params.id});
+                var csAlarm = (req.user == undefined) ? "null" : req.user.csAlarm;
+                res.render('commition', {csAlarm : csAlarm, userId : userId, csid : req.params.id});
             },
             'application/json' : function(){
                 res.send(data);

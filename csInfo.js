@@ -34,9 +34,9 @@ export default React.createClass({
                         <i id="heartIcon" className="fa fa-heart fa-stack-1x fa-inverse red-text"></i>
                     </a>
                     <span>{this.props.data.fans.length}</span>
-                    <a href="#" className="fa-stack fa-lg black-text">
+                    <a href="#" className="fa-stack fa-lg black-text" onClick={this.props.csAlarmPlus}>
                         <i className="fa fa-circle fa-stack-2x"></i>
-                        <i className="fa fa-bell fa-stack-1x fa-inverse"></i>
+                        <i id="alarmIcon" className="fa fa-bell fa-stack-1x fa-inverse"></i>
                     </a><span>알림 설정</span>
                 </div>
             </div>

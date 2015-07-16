@@ -12,6 +12,16 @@ $.ajax({
                 return {data : data};
             },
 
+            componentDidMount : function(){
+                if(this.state.data.fans.indexOf(userId) >= 0) {
+                    clearInterval(heartIntervalId);
+                }
+                if(csAlarm.indexOf(this.state.data._id) >= 0){
+                    $('#alarmIcon').addClass("yellow-text");
+                }
+                socket.emit('viewPlus',{csId : this.state.data._id});
+            },
+
             loadData : function(){
                 $.ajax({
                     url: $(location).attr('href'),
@@ -25,18 +35,48 @@ $.ajax({
                     }.bind(this)
                 });
             },
+
             heartPlus: function(e) {
                 e.preventDefault();
-                var socket = io.connect();
                 if (userId == 'null'){
                     alert("로그인 해주세요.");
                 }else if (this.state.data.fans.indexOf(userId) >= 0) {
-                    alert("이미 하트를 쐈습니다.");
+                    // cancel heartPlus
+                    var newData = data;
+                    var userIdIndex = this.state.data.fans.indexOf(userId);
+                    newData.fans.splice(userIdIndex, 1);
+                    this.setState({data: newData});
+                    socket.emit('cancelHeartPlus',{ csId : this.state.data._id, userId: userId });
+
+                    heartIntervalId = setInterval(function(){
+                        $("#heartIcon").toggleClass("red-text");
+                    },1000);
                 }else{
                     var newData = data;
                     newData.fans.push(userId);
                     this.setState({data: newData});
                     socket.emit('heartPlus',{ csId : this.state.data._id, userId: userId });
+
+                    //stop animation
+                    clearInterval(heartIntervalId);
+                    $("#heartIcon").addClass("red-text");
+                }
+            },
+
+            csAlarmPlus : function(e){
+
+                if (userId == 'null'){
+                    alert("로그인 해주세요.");
+                }else if (csAlarm.indexOf(this.state.data._id) >= 0) {
+                    // cancel Alarm
+                    socket.emit('cancelCsAlarmPlus',{ csId : this.state.data._id, userId: userId });
+                    $('#alarmIcon').removeClass("yellow-text");
+                    var csAlarmIndex = csAlarm.indexOf(this.state.data._id);
+                    csAlarm.splice(csAlarmIndex, 1);
+                }else{
+                    socket.emit('csAlarmPlus',{ csId : this.state.data._id, userId: userId });
+                    $('#alarmIcon').addClass("yellow-text");
+                    csAlarm.push(this.state.data._id);
                 }
             },
             render : function(){
@@ -49,7 +89,7 @@ $.ajax({
                         </div>
                         <div className="col m8">
                             <div className="profileNoticeDiv z-depth-1">
-                                <CsInfo data={this.state.data} heartPlus={this.heartPlus}/>
+                                <CsInfo data={this.state.data} heartPlus={this.heartPlus} csAlarmPlus={this.csAlarmPlus}/>
                             </div>
                         </div>
                     </div>

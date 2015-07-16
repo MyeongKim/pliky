@@ -64,8 +64,8 @@ $.ajax({
             var heartCommit = 'heartCommit'+(i);
             var newCommit = 'newCommit'+(i);
             var dueCommit = 'dueCommit'+(i);
-            React.render(<Gacha data={heartData[i-1]} />, document.getElementById(heartCommit))
-            React.render(<Gacha data={timeData[i-1]} />, document.getElementById(newCommit))
+            React.render(<Gacha data={heartData[i-1]} />, document.getElementById(heartCommit));
+            React.render(<Gacha data={timeData[i-1]} />, document.getElementById(newCommit));
             React.render(<Gacha data={duedateData[i-1]} />, document.getElementById(dueCommit))
         }
 
