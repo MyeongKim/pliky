@@ -55,7 +55,15 @@ io.on('connection', function (socket) {
     socket.on('followMinus', function(data) {
         socketFunction.followMinus(data.creatorId, data.userId);
     });
-
+    socket.on('newComment', function(data) {
+        socketFunction.newComment(data.csId, data.userId, data.comment);
+    });
+    socket.on('getCommentsId', function(data) {
+        socketFunction.getCommentsId(data.csId);
+    });
+    socket.on('newReply', function(data) {
+        socketFunction.newReply(data.csId, data.commentId, data.reply);
+    });
 });
 /**
  * Normalize a port into a number, string, or false.

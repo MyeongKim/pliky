@@ -419,7 +419,7 @@ router.get('/coin', function(req,res,next){
 });
 
 router.get('/cs/:id',function(req,res,next){
-    CommitModel.findOne({ _id : req.params.id}).populate('_creator').exec(function (err, data) {
+    CommitModel.findOne({ _id : req.params.id}).populate('_creator comments.postedBy').exec(function (err, data) {
         res.format({
             'html' : function(){
                 var userId = (req.user == undefined) ? "null" : req.user._id;

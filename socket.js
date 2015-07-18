@@ -57,4 +57,23 @@ module.exports = {
             });
         });
     },
+    newComment : function (csId, userId, comment){
+        CommitModel.update({_id : csId},  { $push: {"comments": {"comment" : comment , postedBy : userId}}}, function(err,data){
+            if (err) return next(err);
+            console.log(data);
+        });
+    },
+    getCommentsId : function(csId){
+        CommitModel.find({_id : csId}).populate('comments.postedBy').exec(function (err, comments) {
+            if (err) return next(err);
+            console.log(comments);
+        });
+    },
+    newReply : function(csId, commentId, reply){
+        CommitModel.update({_id : csId, 'comments._id' : commentId},  { $set: {'comments.$.finished' : true, 'comments.$.reply' : reply}}, function(err,data){
+            if (err) return console.log(err);
+
+            console.log(data);
+        });
+    }
 };

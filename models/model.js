@@ -26,9 +26,9 @@ var CommitSchema = new mongoose.Schema({
     comments : [{
         comment : String,
         postedBy : { type: String, ref: 'User' },
-        createdDate : Date,
+        createdDate : { type: Date, default: Date.now },
         reply : String,
-        finished : Boolean
+        finished : { type: Boolean, default: false }
     }]
 });
 

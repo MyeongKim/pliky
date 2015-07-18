@@ -26,6 +26,7 @@ $.ajax({
                     $('#followIcon').addClass('fa-user-times');
                 }
                 socket.emit('viewPlus',{csId : this.state.data._id});
+                socket.emit('getCommentsId',{csId : this.state.data._id});
             },
 
             loadData : function(){
@@ -141,10 +142,10 @@ $.ajax({
         }
 
         React.render(<Infos data={data}/>,document.getElementsByClassName('upperDiv')[0] );
-        React.render(<CommentBox data={data}/>,document.getElementById('commentButton') );
+        React.render(<CommentBox data={data} />,document.getElementById('commentButton') );
         $('.modal-trigger').leanModal();
         $('.collapsible').collapsible({
-            accordion : false
+            accordion : true
         });
     }
 });
