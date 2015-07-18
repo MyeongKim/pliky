@@ -4,12 +4,6 @@
 import React from "react";
 import CommentItem from './commentItem';
 export default React.createClass({
-
-    getInitialState: function(){
-        return {
-        };
-    },
-
     componentWillMount: function() {
         this.setState({data: this.props.data})
     },

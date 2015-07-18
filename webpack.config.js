@@ -1,8 +1,13 @@
 module.exports = {
     entry: "./commition.js",
+
+    entry: {
+        indexReact: "./React/index.js",
+        commitionReact: "./React/commition.js"
+    },
     output: {
         path: __dirname+'/public/js/',
-        filename: "cs.js"
+        filename: "[name].js"
     },
     module: {
         loaders: [

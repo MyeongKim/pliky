@@ -1,19 +1,8 @@
 import React from "react";
 export default React.createClass({
-
-    getInitialState: function(){
-        return {
-        };
-    },
-
     componentWillMount: function() {
         this.setState({data: this.props.data})
     },
-
-    componentDidMount : function(){
-
-    },
-
     render : function(){
         return (
             <div>

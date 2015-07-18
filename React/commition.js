@@ -135,14 +135,33 @@ $.ajax({
             }
         });
 
-        var index = 0;
-        for( var i in data.title){
-            React.render(<Item data={data} index={{index : index}} />, document.getElementsByClassName('Items')[index]);
-            index++;
-        }
+        var Commition = React.createClass({
+            render : function(){
+                var index = 0;
+                return (
+                    <div>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col s12">
+                                    <div className="row upperDiv">
+                                        <Infos data={data}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {data.title.map(function(o,i) {
+                            return <Item key={i} data={data} index={{index : i}} />
+                        })}
+                        <div id="commentButton" className="center-align">
+                            <CommentBox data={data} />
+                        </div>
+                    </div>
+                )
+            }
+        });
 
-        React.render(<Infos data={data}/>,document.getElementsByClassName('upperDiv')[0] );
-        React.render(<CommentBox data={data} />,document.getElementById('commentButton') );
+        React.render(<Commition />, document.getElementById('commitionPageContainer') );
+
         $('.modal-trigger').leanModal();
         $('.collapsible').collapsible({
             accordion : true

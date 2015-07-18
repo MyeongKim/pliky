@@ -1,16 +1,9 @@
 import React from "react";
 export default React.createClass({
-
-    getInitialState: function(){
-        return {
-        };
-    },
-
     componentWillMount: function() {
         this.setState({data: this.props.data})
 
     },
-
     componentDidMount : function(){
         if(this.props.comment.finished){
             $('#commentFinishCheck'+this.props.comment._id).removeClass('grey-text');
@@ -21,7 +14,6 @@ export default React.createClass({
             $('#collapsible-body'+this.props.comment._id).remove();
         }
     },
-
     setCommentId : function(){
         commentId = this.props.comment._id;
     },
