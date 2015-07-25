@@ -3,7 +3,8 @@ module.exports = {
 
     entry: {
         indexReact: "./React/index.js",
-        commitionReact: "./React/commition.js"
+        commitionReact: "./React/commition.js",
+        mypageReact: "./React/mypage.js"
     },
     output: {
         path: __dirname+'/public/js/',
