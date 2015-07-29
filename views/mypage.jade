@@ -15,6 +15,8 @@ block content
                 slidesToScroll: 1,
                 accessibility : true
             });
+            $('.modal-trigger').leanModal();
+            $('select').material_select();
         });
     .container
         .row
@@ -72,9 +74,29 @@ block content
                                 .col.s12.right-align.portfolio-more
                                     a(href='#')
                                         span 더보기
-
+    #uploadImage.modal
+        .modal-content.row
+            .input-field.col.s5
+                select
+                    option(value='', disabled='', selected='') 그룹 선택
+                    option(value='1') 외주 작업
+                    option(value='2') 끄적끄적
+                    option(value='3') 낙서
+                    option(value='4') 미분류
+                label 그룹 선택
+            .file-field.input-field.col.s7
+                .btn.grey.darken-4
+                    span 파일 선택
+                    input(type='file', multiple)
+                .file-path-wrapper
+                    input.file-path(type='text')
+            .input-field.col.s12
+                textarea#textarea1.materialize-textarea
+                label(for='textarea1') 설명
+        .modal-footer
+            a.modal-action.modal-close.waves-effect.waves-green.btn.grey(href='#!') 업로드
     .footer.grey.darken-4
         .center-align
-            a(href='/portfolio')
+            a.modal-trigger(href='#uploadImage')
                 h5.white-text 그림 등록하기
     script(src="/js/mypageReact.js")

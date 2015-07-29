@@ -391,14 +391,17 @@ router.get('/file/:id',function(req,res,next){
 });
 
 router.get('/mypage/:nickname', function(req,res,next){
-    res.format({
-        'html' : function(){
-            res.render('mypage', {user : req.user, active : 1, nickname : req.params.nickname});
-        },
-        'json' : function(){
-            var data = {}; // img addresses..
-            res.send(data);
-        }
+    UserModel.findOne({ nickname : req.params.nickname}).exec(function (err, data) {
+        res.format({
+            'html' : function(){
+                var userId = (req.user == undefined) ? "null" : req.user._id;
+                var csAlarm = (req.user == undefined) ? "null" : req.user.csAlarm;
+                res.render('mypage', {csAlarm : csAlarm, userId : userId, user : req.user, active : 1, nickname : req.params.nickname});
+            },
+            'application/json' : function(){
+                res.send(data);
+            }
+        });
     });
 });
 
