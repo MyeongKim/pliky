@@ -17,7 +17,7 @@ export default React.createClass({
     render : function(){
         return (
             <div>
-                <div class="commitHistory">
+                <div className="commitHistory">
                     <div>
                         <p></p>
                     </div>
@@ -28,22 +28,10 @@ export default React.createClass({
                         <p></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
                         <p></p>
@@ -55,25 +43,7 @@ export default React.createClass({
                         <p></p>
                     </div>
                     <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p class="greenHistory"></p>
-                    </div>
-                    <div>
-                        <p class="greenHistory"></p>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p></p>
-                    </div>
-                    <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
                         <p></p>
@@ -88,13 +58,10 @@ export default React.createClass({
                         <p></p>
                     </div>
                     <div>
-                        <p></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
-                    </div>
-                    <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
                         <p></p>
@@ -106,7 +73,7 @@ export default React.createClass({
                         <p></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
                         <p></p>
@@ -124,10 +91,22 @@ export default React.createClass({
                         <p></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
+                        <p className="greenHistory"></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
                         <p></p>
@@ -139,7 +118,28 @@ export default React.createClass({
                         <p></p>
                     </div>
                     <div>
-                        <p class="greenHistory"></p>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p className="greenHistory"></p>
+                    </div>
+                    <div>
+                        <p className="greenHistory"></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+                    <div>
+                        <p className="greenHistory"></p>
                     </div>
                     <div>
                         <p></p>

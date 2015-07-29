@@ -20749,20 +20749,24 @@
 	    componentDidMount: function componentDidMount() {},
 
 	    render: function render() {
+	        var obj = this.props.data._creator;
+	        if (obj == undefined) {
+	            obj = this.props.data;
+	        }
 	        return _react2["default"].createElement(
 	            "div",
 	            null,
 	            _react2["default"].createElement(
 	                "h5",
 	                { style: { "marginTop": 0, "paddingTop": 10 }, className: "white-text" },
-	                this.props.data._creator.nickname
+	                obj.nickname
 	            ),
 	            _react2["default"].createElement("img", { src: "/images/profile_siro.jpg", style: { "width": 100, "height": 100 }, className: "circle" }),
 	            _react2["default"].createElement(
 	                "p",
 	                { className: "white-text text-darken-4" },
 	                " ",
-	                this.props.data._creator.selfDesc == "" ? "자기소개가 없습니다." : this.props.data._creator.selfDesc,
+	                obj.selfDesc == "" ? "자기소개가 없습니다." : obj.selfDesc,
 	                _react2["default"].createElement(
 	                    "div",
 	                    { className: "row profileLinks" },
@@ -20776,7 +20780,7 @@
 	                            _react2["default"].createElement(
 	                                "p",
 	                                null,
-	                                this.props.data._creator.following.length
+	                                obj.following.length
 	                            )
 	                        )
 	                    ),
@@ -20790,7 +20794,7 @@
 	                            _react2["default"].createElement(
 	                                "p",
 	                                null,
-	                                this.props.data._creator.follower.length
+	                                obj.follower.length
 	                            )
 	                        )
 	                    ),
